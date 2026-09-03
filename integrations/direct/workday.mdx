@@ -1,0 +1,30 @@
+---
+title: "Connect Workday to Corunner for Enterprise HR Context"
+sidebarTitle: "Workday"
+description: "Connect enterprise HR and people data from Workday. Corunner reads workers, org, and absence data for org context, headcount, and capacity."
+---
+
+Workday is a Direct Connection that lets Corunner read enterprise HR and people data. Once connected, agents get org context, headcount, and capacity signals so they can reason about who owns what and who is out.
+
+## What Corunner does with Workday
+
+Agents pull worker records, the org hierarchy, and absence data. This feeds ownership resolution ("who owns this system?"), capacity planning, and availability-aware routing.
+
+## What you get
+
+- Read workers
+- Read org
+- Read absence
+
+## Authentication
+
+Connect with a **service account**. Your Workday admin creates a service account with the required read scopes, then supplies its credentials in the connection card.
+
+## What breaks if you disconnect
+
+- Org context
+- Capacity planning
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Workday** under the **Direct Connections** tab.

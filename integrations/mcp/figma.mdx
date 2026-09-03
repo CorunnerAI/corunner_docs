@@ -1,0 +1,193 @@
+---
+title: "Connect Figma as an MCP Server in Corunner"
+sidebarTitle: "Figma"
+description: "Connect Figma as an MCP server in Corunner so agents can read design files, frames, and comments for product specs and design context."
+---
+
+Figma is a design and prototyping platform. This page shows you how to connect it as an MCP server in Corunner so your agents can access design context and retrieve product specs.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Figma" icon="palette" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | `https://mcp.figma.com/mcp` (Managed by Corunner) |
+| Authentication | Bearer token |
+| Category | design |
+| Used for | design context, spec retrieval |
+| Provider docs | [https://help.figma.com/hc/en-us/articles/32132100833559](https://help.figma.com/hc/en-us/articles/32132100833559) |
+| Auth link | [Generate a Figma personal access token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens) |
+
+## Connect Figma
+
+<Steps>
+  <Step title="Sign in to Corunner">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step title="Select the MCP Servers tab">
+    Select the MCP Servers tab.
+  </Step>
+  <Step title="Find the Figma card">
+    Find the Figma card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    Turn on the Connect toggle. The Connect Figma modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    Verify the prefilled Server name (Figma by default; rename if you run multiple instances).
+  </Step>
+  <Step title="Verify the Server URL">
+    Verify the prefilled Server URL. Value: `https://mcp.figma.com/mcp`. Because Corunner manages the endpoint, the field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step title="Click Test URL">
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select the authentication method">
+    Select the authentication method (prefilled Bearer token). The modal button reads "Bearer token". Paste your Figma personal access token into the token input.
+  </Step>
+  <Step title="Click Advanced (Optional)">
+    Expand the **Advanced (Optional)** panel. It contains two fields: **Custom headers** (extra HTTP headers Corunner sends to the server, one key/value pair per row) and **Usage guidance** (a free-text instruction that tells agents when and how to use this server). Corunner appends the guidance to every tool description sent to the agent, so it directly influences when the agent picks Figma over another source.
+  </Step>
+  <Step title="Enter Usage guidance">
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which files or projects to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step title="Click Connect">
+    Click Connect.
+  </Step>
+  <Step title="(OAuth only — skip for Figma)">
+    If OAuth is used, Corunner redirects the current tab to the provider's authorization page. (Skip step for Figma.)
+  </Step>
+  <Step title="(OAuth only — skip for Figma)">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="(OAuth only — skip for Figma)">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm the green Connected badge">
+    Confirm a green Connected badge and an enabled Connected toggle on the Figma card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended. A good guidance block answers six questions:
+
+1. **When** should agents use this server?
+2. **What** should they retrieve?
+3. **Which resources** are permitted?
+4. **Which resources** require approval or should not be accessed?
+5. **What must not be accessed?**
+6. **How** should findings be presented?
+
+<Warning>
+  Never enter secrets in the Usage guidance field. It is plain text guidance, not a credentials store.
+</Warning>
+
+Here is a copyable example for Figma:
+
+```text
+Use Figma to fetch product specs and design context. Prefer read frames for a single screen a PM or engineer names, and read files for a full design set. Read comments only when the user asks about outstanding design feedback. Do not retrieve anything from the Brand or HR files. Present findings with the file name, frame name, and a link.
+```
+
+## Verify the Connection
+
+After a successful connection, the Figma card shows:
+
+- A green **Connected** status pill on the name row.
+- A **Connected to `<workspace>`** meta line with relative time (for example, "Connected to Acme 2 hours ago").
+- A **Connected** toggle that is enabled.
+- A **`<N> capabilities`** button that expands into the capability list.
+
+### Capabilities
+
+Figma exposes the following capabilities:
+
+- read files
+- read frames
+- read comments
+
+## Check Connection Health
+
+Click the **Test connection** icon (Wi-Fi glyph, next to the Connected toggle) on the Figma card. This runs a live probe:
+
+- Green check: the endpoint is reachable and credentials are valid.
+- Red warning: the probe failed.
+
+If the probe fails, open **Edit configuration** to refresh your Figma personal access token or verify the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Figma card to update the connection. Editable fields include:
+
+- Server name
+- Server URL (read-only because Corunner manages this endpoint)
+- Authentication method and credentials
+- Custom headers (under Advanced)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and observation consent changes are admin-only actions. Members see status and capabilities, but not the toggle or icon actions.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the Figma card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected even if observation is disabled.
+
+Scopes have:
+
+- **Mode**: Disabled / Shadow / Active
+- **Sensitivity**: Standard / Restricted / Excluded
+
+Excluded scopes cannot be enabled.
+
+<Info>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Info>
+
+<Note>
+  Observation consent changes are admin-only.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. If you also want to eliminate provider-side tokens entirely, revoke the token from your Figma account settings.
+</Warning>
+
+| Action | Result |
+| --- | --- |
+| Turn off Connected toggle | Opens the Disconnect Figma? dialog, with buttons **Keep connected** and **Disconnect Figma**. |
+| Confirm Disconnect Figma | Removes the connection, stored credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | Revoke the Figma personal access token from your Figma account. The next call fails, the card enters an error state, and you are prompted to reconnect. |
+| Temporarily disable | There is no separate disabled state today. Disconnect and reconnect when needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+<CardGroup cols={1}>
+  <Card title="Connect with Figma" icon="palette" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Figma Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+    Browse all available Corunner integrations.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory.
+  </Card>
+
+  <Card title="Governance" icon="shield-check" href="/admin/governance">
+    Review policies for access, observation, and consent.
+  </Card>
+</CardGroup>

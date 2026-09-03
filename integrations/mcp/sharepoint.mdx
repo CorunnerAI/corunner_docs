@@ -1,0 +1,183 @@
+---
+title: "Connect SharePoint as an MCP Server in Corunner"
+sidebarTitle: "SharePoint"
+description: "Connect SharePoint via MCP so agents can search files and read sites. Configure the server URL, authorize OAuth, and manage usage guidance."
+---
+
+SharePoint brings team sites and documents into Corunner by connecting your self-hosted or vendor-hosted MCP server. This page covers how to add the server, set usage guidance, verify the connection, and manage observation consent.
+
+<CardGroup cols={1}>
+  <Card title="Connect with SharePoint" icon="share-nodes" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | User-provided (self-hosted or vendor-hosted) |
+| Authentication | OAuth |
+| Category | Storage |
+| Used for | Document retrieval, knowledge search |
+
+## Connect SharePoint
+
+<Steps>
+  <Step>
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step>
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step>
+    Select the MCP Servers tab.
+  </Step>
+  <Step>
+    Find the SharePoint card in the grid.
+  </Step>
+  <Step>
+    Turn on the Connect toggle. The Connect SharePoint modal opens.
+  </Step>
+  <Step>
+    Verify the prefilled Server name (SharePoint by default; rename if you run multiple instances).
+  </Step>
+  <Step>
+    Verify the prefilled Server URL. Value: `https://your-sharepoint-mcp.example.com/mcp`. Corunner does not manage the MCP endpoint URL for this server. Users paste the URL of their own MCP server (self-hosted or vendor-hosted). Placeholder from the app is used as the hint.
+  </Step>
+  <Step>
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step>
+    Select the authentication method (prefilled OAuth).
+  </Step>
+  <Step>
+    Click **Advanced (Optional)** to expand it. This panel contains the **Usage guidance** field, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter here to every tool description sent to the agent, so it directly influences when the agent picks SharePoint over another source. Custom headers are hidden for OAuth servers.
+  </Step>
+  <Step>
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which sites or libraries to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step>
+    Click Connect with SharePoint (OAuth).
+  </Step>
+  <Step>
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step>
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step>
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step>
+    Confirm a green Connected badge and an enabled Connected toggle on the SharePoint card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when to reach for this server and how to behave while using it. It takes free-form text and typically answers: When should the tool be used? What is it for? Which resources are permitted? Which require approval? What must never be accessed? How should results be presented?
+
+<Warning>
+  Never enter secrets such as API keys, passwords, or tokens into Usage guidance. This field is saved as plain text and may be visible to other admins in your workspace.
+</Warning>
+
+Copy and adapt the example below for your organization:
+
+```text
+Use SharePoint to retrieve official documents that live on internal team sites. Prefer read sites when the user asks about a specific team's content, and search files for broader queries. Do not access sites marked Executive or Board. Cite the site name and file title.
+```
+
+## Verify the Connection
+
+After you connect, the SharePoint card shows:
+
+- A green **Connected** status pill on the name row
+- An enabled **Connected** toggle
+- **Connected to `<workspace>`** with a relative connection time
+- A **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+- search files
+- read sites
+
+<Info>
+  Click the capability count or its chevron on the connected card to view the tools currently exposed by this server.
+</Info>
+
+## Check Connection Health
+
+Use the **Test connection** icon (Wi-Fi glyph, next to the Connected toggle) to run a live probe.
+
+- Green check: the endpoint is reachable and credentials are valid.
+- Red warning: the probe failed.
+
+If the test fails, open **Edit configuration** from the settings icon to refresh credentials or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the SharePoint card to update:
+
+- Server name
+- Server URL (only if not managed by Corunner for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Info>
+  Only workspace admins can create, edit, disconnect, or change observation-consent settings for MCP servers. Members see status and capabilities but cannot modify the connection.
+</Info>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the card to control whether Corunner passively reads resources into organizational memory.
+
+Observation is separate from tool connection. Turning it on or off does not change which capabilities are exposed to agents. It only controls whether Corunner may ingest content for memory and learning purposes.
+
+Each scope has:
+
+- **Mode**: Disabled, Shadow, or Active
+- **Sensitivity**: Standard, Restricted, or Excluded
+
+Excluded scopes cannot be enabled.
+
+<Info>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced observation modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Info>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect SharePoint?** dialog |
+| Confirm Disconnect SharePoint | Removes the connection, credentials, usage guidance, and custom headers. You can reconnect any time. |
+| Revoke on provider | The provider invalidates the token. The next call fails and the card enters an error state, prompting reconnect. |
+| Temporarily disable | Not a separate state today. Disconnect and reconnect when ready. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+<CardGroup cols={1}>
+  <Card title="Ready to go?" icon="share-nodes" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab and turn on the SharePoint Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations overview" icon="plug" href="/integrations/overview">
+    Browse all Corunner integrations and connection types.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Manage what Corunner remembers and how it learns from connected sources.
+  </Card>
+
+  <Card title="Governance" icon="shield" href="/admin/governance">
+    Set policies for tool access, approval flows, and agent guardrails.
+  </Card>
+</CardGroup>

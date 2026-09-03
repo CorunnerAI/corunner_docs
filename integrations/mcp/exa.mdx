@@ -1,0 +1,172 @@
+---
+title: "Connect Exa as an MCP Server in Corunner"
+sidebarTitle: "Exa"
+description: "Set up Exa as an MCP server in Corunner so agents can perform web search and cite current, publicly available information in answers."
+---
+
+Exa via MCP lets Corunner run high-quality web search grounded in current information. Once connected, agents can do research in chat without leaving the thread and cite external sources.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Exa" icon="magnifying-glass" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | `https://mcp.exa.ai/mcp` |
+| Authentication | API key |
+| Category | search |
+| Used for | web search, research, retrieval |
+| Provider docs | [https://dashboard.exa.ai/api-keys](https://dashboard.exa.ai/api-keys) |
+
+## Connect Exa
+
+<Steps>
+  <Step>
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step>
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step>
+    Select the MCP Servers tab.
+  </Step>
+  <Step>
+    Find the Exa card in the grid.
+  </Step>
+  <Step>
+    Turn on the Connect toggle. The Connect Exa modal opens.
+  </Step>
+  <Step>
+    Verify the prefilled Server name (Exa by default; rename if you run multiple instances).
+  </Step>
+  <Step>
+    Verify the prefilled Server URL. Value: `https://mcp.exa.ai/mcp`. The field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step>
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step>
+    Select the authentication method (prefilled API key).
+  </Step>
+  <Step>
+    Click **Advanced (Optional)** to expand it. This panel contains two fields: **Custom headers** (extra HTTP headers Corunner sends to the server, one key/value pair per row) and **Usage guidance** (a free-text instruction that tells agents when and how to use this server). Corunner appends the guidance to every tool description sent to the agent, so it directly influences when the agent picks Exa over another source.
+  </Step>
+  <Step>
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which query types or domains to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step>
+    Click Connect.
+  </Step>
+  <Step>
+    Confirm a green Connected badge and an enabled Connected toggle on the Exa card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when to use Exa, what tasks are allowed, which tasks require approval, what must not be accessed, and how to present results. Write it in plain language; agents read it before each interaction with the server.
+
+<Warning>
+  Never enter secrets, API keys, tokens, or passwords into the Usage guidance field. This field is passed to the model as instruction text and is not a secure vault.
+</Warning>
+
+```text
+Use Exa for research questions that require current, publicly available information. Prefer web search for broad discovery and fetch content when a specific URL should be cited verbatim. Do not use Exa to look up internal customer data. Cite the source title, URL, and publish date if available.
+```
+
+## Verify the Connection
+
+After you connect, the Exa card shows:
+
+- A green **Connected** status pill on the name row
+- An enabled **Connected** toggle
+- A **Connected to `<workspace>`** meta line with relative time (exact workspace name and time vary by user)
+- An expandable **`<N> capabilities`** button
+
+### Capabilities
+
+Exa exposes the following capabilities to Corunner agents:
+
+- web search
+- fetch content
+
+## Check Connection Health
+
+On the Exa card, click the **Test connection** icon (Wi-Fi glyph) next to the Connected toggle. This runs a live probe against the server.
+
+- Green check: the endpoint is reachable and the stored credentials are valid.
+- Red warning: the probe failed.
+
+If the test fails, open **Edit configuration** to refresh the API key or verify the URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Exa card to open the edit modal. You can change:
+
+- Server name
+- Server URL (only if not managed by Corunner; read-only for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Info>
+  Creating, editing, and disconnecting MCP servers are admin-only actions. Members see status and capabilities but cannot modify the configuration.
+</Info>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the Exa card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities available to agents are unaffected.
+
+Scopes have:
+
+- **Mode**: `Disabled`, `Shadow`, or `Active`
+- **Sensitivity**: `Standard`, `Restricted`, or `Excluded`
+
+Excluded scopes cannot be enabled. The drawer title is `Observation consent - Exa`.
+
+<Info>
+  Observation consent changes are admin-only.
+</Info>
+
+<Note>
+  The precise effect on organizational memory of toggling observation off should be confirmed with the Corunner product team if you plan to depend on it in policy. See [Memory & Learnings](/admin/memory) for more details.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Exa?** dialog |
+| Confirm Disconnect Exa | Removes connection, credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | The provider invalidates the token. The next call fails, the card enters an error state, and you are prompted to reconnect. |
+| Temporarily disable | Not a separate state today. Disconnect and reconnect as needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+## Connect Exa
+
+<CardGroup cols={1}>
+  <Card title="Connect with Exa" icon="magnifying-glass" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Exa Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+  </Card>
+
+  <Card title="Agent Roster" icon="users" href="/agents/roster">
+  </Card>
+
+  <Card title="Governance" icon="shield" href="/admin/governance">
+  </Card>
+</CardGroup>

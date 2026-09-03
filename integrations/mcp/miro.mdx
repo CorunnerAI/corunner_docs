@@ -1,0 +1,192 @@
+---
+title: "Connect Miro as an MCP Server in Corunner"
+sidebarTitle: "Miro"
+description: "Connect Miro as an MCP server in Corunner so agents can read whiteboards and items for planning and design conversations."
+---
+
+Miro is a visual collaboration platform for whiteboarding and planning. This page shows you how to connect it as an MCP server in Corunner so your agents can access whiteboard context and planning artifacts.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Miro" icon="chalkboard" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | `https://your-miro-mcp.example.com/mcp` |
+| Authentication | OAuth |
+| Category | design |
+| Used for | whiteboard context, planning artifacts |
+| Provider docs | (not provided) |
+| Auth link | (not provided) |
+
+## Connect Miro
+
+<Steps>
+  <Step title="Sign in to Corunner">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step title="Select the MCP Servers tab">
+    Select the MCP Servers tab.
+  </Step>
+  <Step title="Find the Miro card">
+    Find the Miro card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    Turn on the Connect toggle. The Connect Miro modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    Verify the prefilled Server name (Miro by default; rename if you run multiple instances).
+  </Step>
+  <Step title="Verify the Server URL">
+    Verify the prefilled Server URL. Value: `https://your-miro-mcp.example.com/mcp`.
+  </Step>
+  <Step title="Click Test URL">
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select the authentication method">
+    Select the authentication method (prefilled OAuth).
+  </Step>
+  <Step title="Click Advanced (Optional)">
+    Expand the **Advanced (Optional)** panel. It contains the **Usage guidance** field, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter here to every tool description sent to the agent, so it directly influences when the agent picks Miro over another source. Custom headers are hidden for OAuth servers.
+  </Step>
+  <Step title="Enter Usage guidance">
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which boards or teams to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step title="Click Connect with Miro">
+    Click Connect with Miro.
+  </Step>
+  <Step title="Authorize with the provider">
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step title="Review and approve permissions">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm the green Connected badge">
+    Confirm a green Connected badge and an enabled Connected toggle on the Miro card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended. A good guidance block answers six questions:
+
+1. **When** should agents use this server?
+2. **What** should they retrieve?
+3. **Which resources** are permitted?
+4. **Which resources** require approval or should not be accessed?
+5. **What must not be accessed?**
+6. **How** should findings be presented?
+
+<Warning>
+  Never enter secrets in the Usage guidance field. It is plain text guidance, not a credentials store.
+</Warning>
+
+Here is a copyable example for Miro:
+
+```text
+Use Miro to pull context from planning boards and retros. Prefer read boards when the user names a board or workshop, and read items to zoom into a specific sticky or shape. Do not read boards under the Executive folder. Present findings with the board title, cluster or column name, and a link.
+```
+
+## Verify the Connection
+
+After a successful connection, the Miro card shows:
+
+- A green **Connected** status pill on the name row.
+- A **Connected to `<workspace>`** meta line with relative time (for example, "Connected to Acme 2 hours ago").
+- A **Connected** toggle that is enabled.
+- A **`<N> capabilities`** button that expands into the capability list.
+
+### Capabilities
+
+Miro exposes the following capabilities:
+
+- read boards
+- read items
+
+## Check Connection Health
+
+Click the **Test connection** icon (Wi-Fi glyph, next to the Connected toggle) on the Miro card. This runs a live probe:
+
+- Green check: the endpoint is reachable and credentials are valid.
+- Red warning: the probe failed.
+
+If the probe fails, open **Edit configuration** to refresh credentials or verify the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Miro card to update the connection. Editable fields include:
+
+- Server name
+- Server URL
+- Authentication method and credentials
+- Custom headers (under Advanced, non-OAuth only)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and observation consent changes are admin-only actions. Members see status and capabilities, but not the toggle or icon actions.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the Miro card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected even if observation is disabled.
+
+Scopes have:
+
+- **Mode**: Disabled / Shadow / Active
+- **Sensitivity**: Standard / Restricted / Excluded
+
+Excluded scopes cannot be enabled.
+
+<Info>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Info>
+
+<Note>
+  Observation consent changes are admin-only.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. If you also want to eliminate provider-side OAuth tokens entirely, revoke the OAuth grant from your Miro account settings.
+</Warning>
+
+| Action | Result |
+| --- | --- |
+| Turn off Connected toggle | Opens the Disconnect Miro? dialog, with buttons **Keep connected** and **Disconnect Miro**. |
+| Confirm Disconnect Miro | Removes the connection, stored credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | Revoke the OAuth grant from your Miro account. The next call fails, the card enters an error state, and you are prompted to reconnect. |
+| Temporarily disable | There is no separate disabled state today. Disconnect and reconnect when needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+<CardGroup cols={1}>
+  <Card title="Connect with Miro" icon="chalkboard" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Miro Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+    Browse all available Corunner integrations.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory.
+  </Card>
+
+  <Card title="Governance" icon="shield-check" href="/admin/governance">
+    Review policies for access, observation, and consent.
+  </Card>
+</CardGroup>

@@ -1,0 +1,179 @@
+---
+title: "Connect Slab as an MCP Server in Corunner"
+sidebarTitle: "Slab"
+description: "Set up Slab as an MCP server in Corunner to search posts and read topics. API-key auth, user-provided URL, read-only knowledge capabilities."
+---
+
+Slab is a team knowledge platform. This page shows how to connect Slab to Corunner as an MCP server so agents can search posts and read topics for grounded, internal answers.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Slab" icon="link" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Property | Value |
+| --- | --- |
+| Server URL | User-provided (e.g., `https://your-slab-mcp.example.com/mcp`) |
+| Authentication | API key |
+| Category | knowledge |
+| Used for | memory, knowledge retrieval |
+| Provider docs | [Slab](https://slab.com/) |
+| Auth link | [Slab](https://slab.com/) |
+
+## Connect Slab
+
+<Steps>
+  <Step>
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step>
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step>
+    Select the MCP Servers tab.
+  </Step>
+  <Step>
+    Find the Slab card in the grid.
+  </Step>
+  <Step>
+    Turn on the Connect toggle. The Connect Slab modal opens.
+  </Step>
+  <Step>
+    Verify the prefilled Server name (Slab by default; rename if you run multiple instances).
+  </Step>
+  <Step>
+    Verify the prefilled Server URL. Value: `https://your-slab-mcp.example.com/mcp`. If Corunner manages the endpoint, the field shows a Managed by Corunner hint and is read-only.
+  </Step>
+  <Step>
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step>
+    Select the authentication method (prefilled API key).
+  </Step>
+  <Step>
+    Click **Advanced (Optional)** to expand it. This panel contains two fields: **Custom headers** (extra HTTP headers Corunner sends to the server, one key/value pair per row) and **Usage guidance** (a free-text instruction that tells agents when and how to use this server). Corunner appends the guidance to every tool description sent to the agent, so it directly influences when the agent picks Slab over another source.
+  </Step>
+  <Step>
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which topics or posts to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step>
+    Click Connect.
+  </Step>
+  <Step>
+    If OAuth is used, Corunner redirects the current tab to the provider's authorization page. (Skip step for non-OAuth servers.)
+  </Step>
+  <Step>
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step>
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step>
+    Confirm a green Connected badge and an enabled Connected toggle on the Slab card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner when and how to invoke Slab. A good prompt answers six questions: When should this server be used? What can it do? Which capabilities are permitted? Which require human approval? What must not be accessed? How should results be presented?
+
+<Warning>
+  Never enter secrets or credentials into the Usage guidance field. Treat it as a policy prompt, not a vault.
+</Warning>
+
+Copy and adapt this example:
+
+```text
+Use Slab for internal knowledge posts and team topics. Prefer search posts for a specific question and read topics when the user names a team area. Do not read topics under Finance-Confidential. Cite the post title, topic path, and a link.
+```
+
+## Verify the Connection
+
+After connecting, the Slab card shows:
+
+- A green **Connected** status pill on the name row
+- An enabled **Connected** toggle
+- A **Connected to `<workspace>`** meta line with relative time
+- A **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+- search posts
+- read topics
+
+## Check Connection Health
+
+Click the **Test connection** icon (Wi-Fi glyph, next to the Connected toggle) to run a live probe. A green check means the endpoint is reachable and the API key is valid. A red warning means the probe failed. If it fails, open **Edit configuration** to refresh the API key or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Slab card to change:
+
+- Server name
+- Server URL (only if not managed by Corunner for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Note>
+  Creating, editing, and connecting MCP servers is admin-only. Members can view status and capabilities but cannot change settings.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) to control whether Corunner passively reads Slab resources into organizational memory. Observation is separate from tool connection: scopes with Mode set to Shadow or Active feed memory, while the capability list exposed to agents is unchanged.
+
+Each scope has a **Mode** (Disabled / Shadow / Active) and a **Sensitivity** (Standard / Restricted / Excluded). Excluded scopes cannot be enabled.
+
+<Warning>
+  Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled.
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+<Note>
+  Changing observation consent is admin-only.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the Disconnect Slab dialog. |
+| Confirm Disconnect Slab | Removes the connection, stored credentials, Usage guidance, and custom headers. You can reconnect any time. |
+| Revoke on provider | Provider invalidates the token. The next call fails, the card enters an error state, and Corunner prompts you to reconnect. |
+| Temporarily disable | Not a separate state today. Disconnect and reconnect when needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+## Connect Slab
+
+<CardGroup cols={1}>
+  <Card title="Connect with Slab" icon="link" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Slab Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup>
+  <Card title="Integrations overview" icon="puzzle-piece" href="/integrations/overview">
+    Browse all Corunner integrations and connection types.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Understand how Corunner builds organizational memory from connected sources.
+  </Card>
+
+  <Card title="Governance" icon="shield-halved" href="/admin/governance">
+    Review policies, access controls, and admin-only settings.
+  </Card>
+</CardGroup>

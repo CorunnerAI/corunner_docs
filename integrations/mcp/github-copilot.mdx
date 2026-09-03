@@ -1,0 +1,181 @@
+---
+title: "Connect GitHub Copilot MCP to Corunner Agents"
+sidebarTitle: "GitHub Copilot"
+description: "Set up GitHub Copilot MCP in Corunner so agents can read repos, issues, and code for repo-aware engineering answers."
+---
+
+GitHub Copilot via MCP lets Corunner query code and repositories with Copilot-quality context. It complements the [GitHub](/integrations/direct/github) Direct Connection for engineering conversations that need deep code intelligence rather than PR signals.
+
+<CardGroup cols={1}>
+  <Card title="Connect with GitHub Copilot MCP" icon="github" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | `https://api.githubcopilot.com/mcp/` |
+| Authentication | OAuth |
+| Category | engineering |
+| Used for | code context, repo intelligence |
+| Provider docs | [https://docs.github.com/copilot](https://docs.github.com/copilot) |
+
+## Connect GitHub Copilot MCP
+
+<Steps>
+  <Step>
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step>
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step>
+    Select the MCP Servers tab.
+  </Step>
+  <Step>
+    Find the GitHub Copilot MCP card in the grid.
+  </Step>
+  <Step>
+    Turn on the Connect toggle. The Connect GitHub Copilot MCP modal opens.
+  </Step>
+  <Step>
+    Verify the prefilled Server name (GitHub Copilot MCP by default; rename if you run multiple instances).
+  </Step>
+  <Step>
+    Verify the prefilled Server URL. Value: `https://api.githubcopilot.com/mcp/`. The field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step>
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step>
+    Select the authentication method (prefilled OAuth).
+  </Step>
+  <Step>
+    Click **Advanced (Optional)** to expand it. This panel contains the **Usage guidance** field, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter here to every tool description sent to the agent, so it directly influences when the agent picks GitHub Copilot MCP over another source. Custom headers are hidden for OAuth servers.
+  </Step>
+  <Step>
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which repositories or actions to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step>
+    Click Connect with GitHub Copilot MCP.
+  </Step>
+  <Step>
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step>
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step>
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step>
+    Confirm a green Connected badge and an enabled Connected toggle on the GitHub Copilot MCP card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when to use GitHub Copilot MCP, what tasks are allowed, which tasks require approval, what must not be accessed, and how to present results. Write it in plain language; agents read it before each interaction with the server.
+
+<Warning>
+  Never enter secrets, API keys, tokens, or passwords into the Usage guidance field. This field is passed to the model as instruction text and is not a secure vault.
+</Warning>
+
+```text
+Use GitHub Copilot MCP for repo-aware code questions. Prefer read code for a specific file or function the user names, read repos to answer questions about repository structure, and read issues when the question references a ticket number. Do not attempt to write or comment on issues. Cite file paths, line ranges, and permalinks.
+```
+
+## Verify the Connection
+
+After you connect, the GitHub Copilot MCP card shows:
+
+- A green **Connected** status pill on the name row
+- An enabled **Connected** toggle
+- A **Connected to `<workspace>`** meta line with relative time (exact workspace name and time vary by user)
+- An expandable **`<N> capabilities`** button
+
+### Capabilities
+
+GitHub Copilot MCP exposes the following capabilities to Corunner agents:
+
+- read repos
+- read issues
+- read code
+
+## Check Connection Health
+
+On the GitHub Copilot MCP card, click the **Test connection** icon (Wi-Fi glyph) next to the Connected toggle. This runs a live probe against the server.
+
+- Green check: the endpoint is reachable and the stored credentials are valid.
+- Red warning: the probe failed.
+
+If the test fails, open **Edit configuration** to refresh credentials or verify the URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the GitHub Copilot MCP card to open the edit modal. You can change:
+
+- Server name
+- Server URL (only if not managed by Corunner; read-only for this server)
+- Authentication method and credentials
+- Usage guidance
+
+<Info>
+  Creating, editing, and disconnecting MCP servers are admin-only actions. Members see status and capabilities but cannot modify the configuration.
+</Info>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the GitHub Copilot MCP card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities available to agents are unaffected.
+
+Scopes have:
+
+- **Mode**: `Disabled`, `Shadow`, or `Active`
+- **Sensitivity**: `Standard`, `Restricted`, or `Excluded`
+
+Excluded scopes cannot be enabled. The drawer title is `Observation consent - GitHub Copilot MCP`.
+
+<Info>
+  Observation consent changes are admin-only.
+</Info>
+
+<Note>
+  The precise effect on organizational memory of toggling observation off should be confirmed with the Corunner product team if you plan to depend on it in policy. See [Memory & Learnings](/admin/memory) for more details.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect GitHub Copilot MCP?** dialog |
+| Confirm Disconnect GitHub Copilot MCP | Removes connection, credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | The provider invalidates the token. The next call fails, the card enters an error state, and you are prompted to reconnect. |
+| Temporarily disable | Not a separate state today. Disconnect and reconnect as needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+## Connect GitHub Copilot MCP
+
+<CardGroup cols={1}>
+  <Card title="Connect with GitHub Copilot MCP" icon="github" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the GitHub Copilot MCP Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Direct GitHub Connector" icon="github" href="/integrations/direct/github">
+  </Card>
+
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+  </Card>
+
+  <Card title="Agent Roster" icon="users" href="/agents/roster">
+  </Card>
+</CardGroup>

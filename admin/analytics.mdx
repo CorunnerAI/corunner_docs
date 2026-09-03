@@ -1,0 +1,36 @@
+---
+title: "Analytics: Agent Activity and Plan Usage in Corunner"
+sidebarTitle: "Analytics"
+description: "Track agent activity over 7, 30, or 90 days and see plan-allowance usage for the current billing month across tokens, workspaces, chat providers, and standups."
+---
+
+The Analytics page in the Corunner web app has two tabs: **Activity** and **Billing cycle**. Activity is about what agents are doing across your workspace. Billing cycle shows how much of your plan allowance you have used this month.
+
+## Activity
+
+Choose a range of **7 days**, **30 days**, or **90 days**. Activity covers agent runs, approval rate, and volume by agent so you can see where Corunner is doing the most work and where it is being asked to do things it cannot.
+
+## Billing cycle
+
+Plan-allowance usage for the current billing month:
+
+- **AI tokens** used against your token allowance.
+- **Workspaces** in use against your workspace limit.
+- **Chat providers** connected against your chat-provider limit.
+- **Standups** created against your standup limit.
+
+<Note>
+  Credit-consumption details live under Analytics rather than Billing so admins and members can see what agents are consuming without needing plan-management access.
+</Note>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Dashboard" icon="gauge" href="/admin/dashboard">
+    Headline usage bars for the current month.
+  </Card>
+
+  <Card title="Governance" icon="scale-balanced" href="/admin/governance">
+    Tune what agents can do automatically vs. with approval.
+  </Card>
+</CardGroup>

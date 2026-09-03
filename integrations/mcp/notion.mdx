@@ -1,0 +1,192 @@
+---
+title: "Connect Notion as an MCP Server in Corunner"
+sidebarTitle: "Notion"
+description: "Connect Notion as an MCP server in Corunner for memory, semantic search, and decision intelligence. Authenticate with OAuth and expose read capabilities."
+---
+
+The Notion MCP server lets Corunner agents access your Notion pages, databases, and docs. This page covers how to connect it, configure usage guidance, verify capabilities, and manage the connection.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Notion" icon="notion" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server Details
+
+| Property | Value |
+| --- | --- |
+| Server URL | `https://mcp.notion.com/mcp` |
+| Authentication | OAuth |
+| Category | knowledge |
+| Used for | memory, semantic search, decision intelligence |
+| Provider docs | [Notion MCP docs](https://developers.notion.com/docs/mcp) |
+
+## Connect Notion
+
+<Steps>
+  <Step title="Sign in to Corunner">
+    Go to [app.corunner.ai](https://app.corunner.ai) and sign in.
+  </Step>
+  <Step title="Open Integrations">
+    Click **Integrations** in the left sidebar.
+  </Step>
+  <Step title="Select the MCP Servers tab">
+    Choose the **MCP Servers** tab.
+  </Step>
+  <Step title="Find the Notion card">
+    Locate the **Notion** card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    The **Connect Notion** modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    The prefilled name is **Notion**. Rename it if you run multiple instances.
+  </Step>
+  <Step title="Verify the Server URL">
+    Value: `https://mcp.notion.com/mcp`. This field is managed by Corunner and is read-only.
+  </Step>
+  <Step title="Click Test URL">
+    Confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select the authentication method">
+    Prefilled: **OAuth**.
+  </Step>
+  <Step title="Click Advanced (Optional)">
+    Expand the **Advanced (Optional)** panel. It contains the **Usage guidance** field, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter here to every tool description sent to the agent, so it directly influences when the agent picks Notion over another source. Leave it empty now and add it later from **Edit configuration** if you prefer.
+  </Step>
+  <Step title="Enter Usage guidance">
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which pages or databases to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step title="Click Connect with Notion">
+    This initiates the OAuth authorization flow.
+  </Step>
+  <Step title="Authorize with Notion">
+    Corunner redirects the current tab to Notion's authorization page.
+  </Step>
+  <Step title="Approve permissions">
+    Review and approve the requested permissions in the Notion consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, the tab returns to Corunner automatically.
+  </Step>
+  <Step title="Confirm connection">
+    Confirm a green **Connected** badge and an enabled **Connected** toggle on the **Notion** card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner when, how, and what boundaries to apply when agents use this server. The six purposes are:
+
+1. **When** to use it
+2. **What** to do with it
+3. **Which** resources are permitted
+4. **Which** resources require approval
+5. **What must not** be accessed
+6. **How** to present results
+
+<Warning>
+  Never enter secrets, tokens, or credentials into the Usage guidance field. It is stored as plain text and visible to all workspace members.
+</Warning>
+
+Copy and adapt the following example:
+
+```text
+Use Notion when a question likely has an answer in our engineering, product, or company docs, or when you need to cite a decision. Prefer searching pages before opening databases. Do not retrieve content from the People or HR databases. Present results as short quotes with the Notion page title and a link.
+```
+
+## Verify the Connection
+
+After connecting, the **Notion** card shows:
+
+- A green **Connected** status pill next to the name
+- An enabled **Connected** toggle
+- **Connected to `<workspace>`** with a relative timestamp (e.g., "2 minutes ago")
+- A **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+The Notion server exposes the following tools:
+
+- search pages
+- read databases
+- read docs
+
+## Check Connection Health
+
+Click the **Test connection** icon (Wi-Fi glyph) on the Notion card to run a live probe. A green check means the endpoint is reachable and credentials are valid. A red warning means the probe failed.
+
+If the test fails:
+
+- Open **Edit configuration** to refresh your OAuth credentials or verify the Server URL
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Notion card. Admins can update:
+
+- Server name
+- Server URL (read-only for Corunner-managed endpoints)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Note>
+  Create, edit, disconnect, and observation-consent changes are admin-only. Members can view status and capabilities but cannot modify settings.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) to open the consent drawer and configure what Notion resources Corunner can observe for organizational memory.
+
+Observation is separate from tool connection: it controls whether Corunner passively reads resources into memory, while capabilities (tools agents can call) are unaffected.
+
+- **Mode**: Disabled / Shadow / Active
+- **Sensitivity**: Standard / Restricted / Excluded
+- **Excluded** scopes cannot be enabled
+
+<Warning>
+  Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled.
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced observation modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Notion?** dialog |
+| Confirm Disconnect Notion | Removes connection + credentials + Usage guidance + headers; you can reconnect any time |
+| Revoke on provider | Provider invalidates the token; next call fails and card enters error state, prompting reconnect |
+| Temporarily disable | Not a separate state today; disconnect and reconnect |
+| Delete configuration | Same as Disconnect; there is no separate delete |
+
+## Connect Notion
+
+<CardGroup cols={1}>
+  <Card title="Connect with Notion" icon="notion" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Notion Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+    Browse all available integrations and MCP servers.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory from connected sources.
+  </Card>
+
+  <Card title="Governance" icon="shield" href="/admin/governance">
+    Review access controls and policies for integrations.
+  </Card>
+</CardGroup>

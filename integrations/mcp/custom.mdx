@@ -1,0 +1,178 @@
+---
+title: "Register a Custom MCP Server With Corunner Agents"
+sidebarTitle: "Custom MCP Server"
+description: "Connect any Model Context Protocol server so Corunner agents can call its tools. Use this flow for internal services or vendors without a native connector."
+---
+
+The Custom MCP Server flow lets you register any public Model Context Protocol server with Corunner. This page covers how to add a custom server, configure authentication and usage guidance for agents, verify the connection, and manage or disconnect it later.
+
+<CardGroup cols={1}>
+  <Card title="Add a custom MCP server" icon="plus" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab and choose Add custom MCP server.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | User-provided public https endpoint |
+| Authentication | User-selected: None, Bearer token, API key, or OAuth |
+| Category | ai |
+| Used for | Custom tools and agent capabilities |
+| Capabilities | Discovered from the server on connection |
+
+## Connect Custom MCP Server
+
+<Steps>
+  <Step title="Sign in">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step title="Select MCP Servers tab">
+    Select the MCP Servers tab.
+  </Step>
+  <Step title="Add custom MCP server">
+    In the MCP Servers grid, click **Add custom MCP server** (or the equivalent CTA at the top of the tab).
+  </Step>
+  <Step title="Modal opens">
+    The **Add custom MCP server** modal opens.
+  </Step>
+  <Step title="Enter a Server name">
+    Enter a Server name (for example, "Internal Wiki"). This is the label agents and admins will see.
+  </Step>
+  <Step title="Enter the Server URL">
+    Enter the Server URL. It must be a public https endpoint. The URL cannot be localhost, a private IP, or a link-local address; Corunner rejects those client-side before submission.
+  </Step>
+  <Step title="Click Test URL">
+    Click **Test URL**. The check validates URL format only; the real handshake happens on submit.
+  </Step>
+  <Step title="Choose authentication method">
+    Choose the Authentication method: **None**, **Bearer token**, **API key**, or **OAuth**. Non-OAuth methods reveal a token field; OAuth uses the standard MCP OAuth 2.0 dynamic-client-registration + PKCE flow.
+  </Step>
+  <Step title="Click Advanced (Optional)">
+    Expand the **Advanced (Optional)** panel. Depending on the auth method you picked, it contains: **Custom headers** (only for None, Bearer token, or API key servers, hidden for OAuth) where you add extra HTTP headers Corunner sends to the server as key/value pairs, and **Usage guidance**, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter in guidance to every tool description sent to the agent, so it directly influences when the agent picks this server over others.
+  </Step>
+  <Step title="Enter Usage guidance">
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which tools or resources to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step title="Click Add server (or Authorize)">
+    Click **Authorize** (OAuth) or **Add server** (None / Bearer token / API key).
+  </Step>
+  <Step title="OAuth redirect">
+    If OAuth is used, Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step title="Approve permissions">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm Connected badge">
+    Confirm a green Connected badge and an enabled Connected toggle on the Custom MCP Server card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this MCP server. Write it as plain text; it is appended to the system prompt. Good guidance covers six purposes:
+
+1. **When** to use the server (what user questions or tasks trigger it)
+2. **What** the server can do (a short summary)
+3. **Which operations** are permitted without extra approval
+4. **Which operations** require approval before running
+5. **What** must never be accessed or modified
+6. **How** to present results to the user
+
+<Warning>
+  Never enter secrets in Usage guidance. It is sent in prompts to the LLM and is not a secure store for tokens, passwords, or keys.
+</Warning>
+
+```text
+Use the Internal Wiki MCP server when the user asks about company policies, onboarding, or team rituals. Prefer search over reading whole pages. Do not read pages tagged Legal or Finance. Present answers as short summaries with the page title and internal link.
+```
+
+Tailor the example to your own server name, tools, and policies.
+
+## Verify the Connection
+
+After the server is added, the card shows:
+
+- A green **Connected** status pill on the name row
+- A **Connected to `<workspace>`** meta line with relative connection time
+- An enabled **Connected** toggle
+- A **`<N> capabilities`** button that expands into the capability list
+
+Capabilities are discovered at connection time from the MCP server itself, so the list shown on the card reflects whatever the server registered. Click the capability count on the card to see the current tools.
+
+## Check Connection Health
+
+On the connected card, click the **Test connection** icon (Wi-Fi glyph) next to the Connected toggle. It runs a live probe: green check means the endpoint is reachable and credentials are valid; red warning means the probe failed. If the test fails, open **Edit configuration** to refresh credentials or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the connected card to change settings. Editable fields include:
+
+- Server name
+- Server URL (only if not managed by Corunner)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and observation-consent changes are admin-only. Members see status and capabilities but cannot toggle the connection or use the action icons.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the connected card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected.
+
+Scopes have **Mode** (Disabled / Shadow / Active) and **Sensitivity** (Standard / Restricted / Excluded). Excluded scopes cannot be enabled.
+
+<Warning>
+  Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled.
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Result |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Custom MCP Server?** dialog |
+| Confirm Disconnect Custom MCP Server | Removes the connection, credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | If the provider invalidates the token, the next call fails and the card enters an error state that prompts you to reconnect. |
+| Temporarily disable | There is no separate disable state today; disconnect and reconnect when needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+## Connect Custom MCP Server
+
+<CardGroup cols={1}>
+  <Card title="Start adding a server" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and click Add custom MCP server.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Integrations overview" icon="plug" href="/integrations/overview">
+    How Direct Connections and MCP Servers fit together.
+  </Card>
+
+  <Card title="Notion MCP Server" icon="file-lines" href="/integrations/mcp/notion">
+    Connect Notion as an MCP server for page and database access.
+  </Card>
+
+  <Card title="Governance" icon="scale-balanced" href="/admin/governance">
+    Approval policies and controls that apply to MCP tool calls.
+  </Card>
+</CardGroup>

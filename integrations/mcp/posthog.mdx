@@ -1,0 +1,204 @@
+---
+title: "Connect PostHog as an MCP Server in Corunner"
+sidebarTitle: "PostHog"
+description: "Link PostHog to Corunner as an MCP server for read-only product analytics via OAuth. Manage connection, observation, and usage guidance."
+---
+
+PostHog via MCP gives Corunner agents a read-only interface for product analytics and insights. This page covers how to connect PostHog, configure usage guidance, verify capabilities, and manage the connection in Corunner.
+
+<CardGroup cols={1}>
+  <Card title="Connect with PostHog" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | [https://mcp.posthog.com/mcp](https://mcp.posthog.com/mcp) (managed by Corunner) |
+| Authentication | OAuth |
+| Category | monitoring |
+| Used for | read-only product analytics through PostHog MCP |
+| Provider docs | [PostHog Model Context Protocol](https://posthog.com/docs/model-context-protocol) |
+| Auth link | n/a |
+
+PostHog Cloud is the single profile available and is prefilled automatically when Corunner manages the endpoint.
+
+## Connect PostHog
+
+<Steps>
+  <Step title="Sign in">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open **Integrations** in the left sidebar.
+  </Step>
+  <Step title="Select MCP Servers">
+    Select the **MCP Servers** tab.
+  </Step>
+  <Step title="Find the PostHog card">
+    Find the **PostHog** card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    Turn on the **Connect** toggle. The **Connect PostHog** modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    Verify the prefilled Server name ("PostHog" by default; rename if you run multiple instances).
+  </Step>
+  <Step title="Verify the Server URL">
+    Verify the prefilled Server URL. Value: `https://mcp.posthog.com/mcp`. If Corunner manages the endpoint, the field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step title="Click Test URL">
+    Click **Test URL** to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select authentication">
+    Select the authentication method (prefilled **OAuth**).
+  </Step>
+  <Step title="Open Advanced (optional)">
+    Optionally click **Advanced** to expand custom headers and Usage guidance.
+  </Step>
+  <Step title="Enter Usage guidance">
+    Enter Usage guidance describing when and how agents should use this server (see the next section for a copyable example).
+  </Step>
+  <Step title="Click Connect with PostHog">
+    Click **Connect with PostHog** (OAuth).
+  </Step>
+  <Step title="Authorize with PostHog">
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step title="Approve permissions">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm Connected">
+    Confirm a green **Connected** badge and an enabled **Connected** toggle on the **PostHog** card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended for safe, consistent behavior. Good guidance answers six purposes:
+
+- **When** should agents use this server?
+- **What** specific tasks should they perform?
+- **Which** tasks are permitted?
+- **Which** tasks require human approval?
+- **What** must not be accessed?
+- **How** should results be presented?
+
+<Warning>
+  Never enter secrets into Usage guidance. This field is for instructions, not credentials.
+</Warning>
+
+Copy and adapt this example:
+
+```text
+Use PostHog MCP for product analytics questions. Prefer query trends and funnels for weekly and monthly usage questions, and inspect retention and paths for user journey questions. Read flags only to explain rollout state, never propose a flag change. Do not read cohorts labeled PII or Employee-Test. Present numbers with the date range and the PostHog dashboard link.
+```
+
+## Verify the Connection
+
+After a successful connection, the **PostHog** card shows:
+
+- a green **Connected** status pill on the name row
+- an enabled **Connected** toggle
+- a meta line such as **Connected to `<workspace>`** with a relative time
+- a **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+PostHog exposes the following capabilities to Corunner agents:
+
+- query trends and funnels
+- inspect retention and paths
+- read flags and experiments
+- review dashboards and cohorts
+- read-only beta
+
+<Info>
+  PostHog MCP is in read-only beta; the specific tools change as PostHog evolves the server. Click the capability count on the connected card to see the current tools.
+</Info>
+
+## Check Connection Health
+
+On the connected card, the **Test connection** icon (Wi-Fi glyph next to the **Connected** toggle) runs a live probe of the server.
+
+- Green check = reachable and credentials valid
+- Red warning = probe failed
+
+If the test fails, open **Edit configuration** to refresh credentials or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the connected card to update the connection.
+
+Editable fields:
+
+- Server name
+- Server URL (only if not managed by Corunner for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under **Advanced**)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and changing observation consent are admin-only actions. Members can view status and capabilities but cannot modify the connection.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the connected card to open the **Observation consent - PostHog** drawer.
+
+Observation is separate from tool connection. It controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected.
+
+Scopes have **Mode** (`Disabled` / `Shadow` / `Active`) and **Sensitivity** (`Standard` / `Restricted` / `Excluded`). Excluded scopes cannot be enabled.
+
+<Warning>
+  "Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled."
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+Creating, editing, disconnecting, and changing observation consent are admin-only.
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect PostHog?** dialog |
+| Confirm Disconnect PostHog | Removes connection, credentials, Usage guidance, and headers; you can reconnect any time |
+| Revoke on provider | Provider invalidates the token; the next call fails, the card enters an error state, and prompts reconnect |
+| Temporarily disable | Not a separate state today; disconnect and reconnect as needed |
+| Delete configuration | Same as disconnect; there is no separate delete |
+
+## Connect PostHog
+
+<CardGroup cols={1}>
+  <Card title="Connect with PostHog" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the PostHog Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Integrations overview" icon="grid" href="/integrations/overview">
+    Browse all available integrations and connection types.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory from observations.
+  </Card>
+
+  <Card title="Governance" icon="shield" href="/admin/governance">
+    Review policies for access, approval, and data handling.
+  </Card>
+</CardGroup>

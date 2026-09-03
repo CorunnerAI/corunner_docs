@@ -1,0 +1,34 @@
+---
+title: "Connect Sentry to Corunner for Errors and Release Health"
+sidebarTitle: "Sentry"
+description: "Surface errors, regressions, and release health from Sentry. Corunner reads issues, events, and releases so agents can send error signals and alerts."
+---
+
+Sentry is a Direct Connection that lets Corunner surface errors, regressions, and release health. Once connected, agents send error signals and regression alerts into chat, and the Debug/Diagnostics Agent uses Sentry data when it correlates changes with incidents.
+
+## What Corunner does with Sentry
+
+Agents read issues, events, and releases from your Sentry project. New regressions and unusual error spikes surface as notifications in the relevant channel, with evidence links back to Sentry.
+
+## What you get
+
+- Read issues
+- Read events
+- Read releases
+
+## Authentication
+
+Connect with an API key (Sentry auth token) you generate in your Sentry organization. Paste it into the connection card in Corunner.
+
+## What breaks if you disconnect
+
+- Error signals
+- Regression alerts
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Sentry** under the **Direct Connections** tab.
+
+<Tip>
+  For read-only access to Sentry issues via the Model Context Protocol, see [Sentry MCP](/integrations/mcp/sentry).
+</Tip>

@@ -1,0 +1,34 @@
+---
+title: "Connect Datadog to Corunner for Monitor and Incident Signals"
+sidebarTitle: "Datadog"
+description: "Pull metrics, monitors, and incidents from Datadog. Corunner reads monitors, incidents, and metrics for incident signals, monitor health, and SLO tracking."
+---
+
+Datadog is a Direct Connection that lets Corunner pull monitors, incidents, and metrics from your Datadog organization. Once connected, agents surface incident signals and monitor health in chat and use metrics to reason about SLO trends.
+
+## What Corunner does with Datadog
+
+Agents read your monitors and incidents to send alerts when an SLO burns or an incident opens, and they read metrics to answer questions like "how many errors is checkout throwing right now?" without your team leaving chat.
+
+## What you get
+
+- Read monitors
+- Read incidents
+- Read metrics
+
+## Authentication
+
+Connect with a **service account**. Your admin creates a service account in Datadog with the required read scopes, then supplies its credentials in the connection card.
+
+## What breaks if you disconnect
+
+- Incident signals
+- Monitor health
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Datadog** under the **Direct Connections** tab.
+
+<Tip>
+  For read-only investigative access through the Model Context Protocol, see [Datadog MCP](/integrations/mcp/datadog).
+</Tip>

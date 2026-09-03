@@ -1,0 +1,31 @@
+---
+title: "Connect GitLab to Corunner for MR and Pipeline Signals"
+sidebarTitle: "GitLab"
+description: "Track merge requests, pipelines, and repositories in GitLab. Corunner reads MR signals, pipeline health, and review load using a personal access token."
+---
+
+GitLab is a Direct Connection that lets Corunner read merge requests, pipelines, and repositories. Once connected, agents use it for MR signals, pipeline health, and review-load insights.
+
+## What Corunner does with GitLab
+
+Agents track open merge requests, watch pipeline runs for failures and flakiness, and surface review-load imbalances so nobody becomes a bottleneck. Commit history feeds context when the Debug/Diagnostics Agent correlates recent changes with incidents.
+
+## What you get
+
+- Read repos
+- Read merge requests
+- Read pipelines
+- Read commits
+
+## Authentication
+
+Connect with a **personal access token** from GitLab. Create the token with the required read scopes, then paste it into the connection card in Corunner.
+
+## What breaks if you disconnect
+
+- MR signals
+- Pipeline health
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **GitLab** under the **Direct Connections** tab.

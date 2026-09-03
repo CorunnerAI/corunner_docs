@@ -1,0 +1,63 @@
+---
+title: "Chat With Corunner in Microsoft Teams"
+sidebarTitle: "Microsoft Teams"
+description: "How to install Corunner in Microsoft Teams, mention @Corunner in channels and chats, and act on approvals directly inside Teams messages."
+---
+
+Corunner runs inside Microsoft Teams so your team can mention `@Corunner` in any channel or chat without leaving Teams. Install requires a Teams admin because the app requests tenant-wide permissions during consent.
+
+## Install Corunner in Teams
+
+<Steps>
+  <Step title="Add the Corunner app in Teams">
+    First add the Corunner app in Microsoft Teams from the Teams app store.
+
+    <Info>
+      The Corunner listing in the Teams Marketplace is coming soon. Until it is public, your Corunner contact will share the app package so a Teams admin can side-load it.
+    </Info>
+  </Step>
+  <Step title="Return to the Corunner onboarding page">
+    Open the Corunner sign-in page and complete SSO with your Teams account. You will land on **Connect your workspace**.
+  </Step>
+  <Step title="Click Connect Microsoft Teams">
+    Connecting requires a Microsoft Teams admin. You will approve the permissions Corunner can access across your organization.
+  </Step>
+</Steps>
+
+<Tip>
+  Not an admin? Corunner will show an **ask your admin** message and a shareable link you can send to the person who can complete the install.
+</Tip>
+
+## Mention @Corunner
+
+Once installed, mention `@Corunner` in any channel, group chat, or one-on-one chat:
+
+```text Teams
+@Corunner summarize this thread and pull out the action items
+```
+
+Corunner streams its reasoning back into the same message thread, with citations from your connected tools.
+
+## Approvals in the message
+
+If a response includes an action that touches a production system, a customer, or a person, the message shows **Approve**, **Edit**, and **Reject** controls. Whoever has permission to act can respond right there. Approvals never require jumping to the web app.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Approvals in Chat" icon="check" href="/chat/approvals-in-chat">
+    How human approval works in Teams.
+  </Card>
+
+  <Card title="Multimodal" icon="image" href="/chat/multimodal">
+    Drop screenshots and diagrams into any Teams thread.
+  </Card>
+
+  <Card title="Agents & Standups" icon="robot" href="/agents/overview">
+    Meet the specialists that pick up your requests.
+  </Card>
+
+  <Card title="Integrations" icon="plug" href="/integrations/overview">
+    Connect the tools Corunner reads from and acts on.
+  </Card>
+</CardGroup>

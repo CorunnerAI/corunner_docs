@@ -1,0 +1,100 @@
+---
+title: "Corunner Integrations: Direct Connections and MCP Servers"
+sidebarTitle: "Overview"
+description: "Corunner integrations come in two shapes: Direct Connections native to the product and MCP Servers that speak the Model Context Protocol."
+---
+
+Corunner integrations come in two shapes. **Direct Connections** are native to Corunner and expose dedicated capabilities such as reading issues, posting messages, or subscribing to webhook events. **MCP Servers** are Model Context Protocol servers that Corunner registers on your behalf so agents can query them like any other tool. Both live under **Integrations** in the web app, on separate tabs.
+
+Every integration inherits the permissions of the account or token you connect with. Corunner never asks for more access than the connector needs.
+
+## Direct Connections
+
+Native connectors with dedicated capabilities. Corunner authenticates with the vendor using one of five methods:
+
+| Auth type | What it looks like |
+| --- | --- |
+| OAuth | You approve scopes in a browser popup during the connect flow. |
+| API Key | You paste a key you generated in the vendor's admin console. |
+| Personal Access Token (PAT) | You paste a token you created in your vendor account. |
+| Atlassian Forge app | Corunner ships as a Forge app that you install from the Atlassian Marketplace. |
+| Service Account | Your admin creates a machine account in the vendor with the read scopes Corunner needs. |
+
+<CardGroup cols={3}>
+  <Card title="GitHub" icon="github" href="/integrations/direct/github">
+    Repositories, pull requests, and CI checks.
+  </Card>
+
+  <Card title="Linear" icon="rectangle-list" href="/integrations/direct/linear">
+    Issues, blockers, and standup enrichment.
+  </Card>
+
+  <Card title="Jira & Confluence" icon="jira" href="/integrations/direct/jira-confluence">
+    Issue sync, tickets, and Confluence pages.
+  </Card>
+
+  <Card title="Salesforce" icon="salesforce" href="/integrations/direct/salesforce">
+    Pipeline, accounts, and opportunities.
+  </Card>
+
+  <Card title="HubSpot" icon="hubspot" href="/integrations/direct/hubspot">
+    Deals, contacts, and pipelines.
+  </Card>
+
+  <Card title="Datadog" icon="dog" href="/integrations/direct/datadog">
+    Monitors, incidents, and metrics.
+  </Card>
+</CardGroup>
+
+## MCP Servers
+
+Corunner can register any Model Context Protocol server and expose its tools to agents. Use MCP for read-only knowledge, product analytics, design context, or custom internal tools that already speak MCP.
+
+<CardGroup cols={3}>
+  <Card title="Notion" icon="book" href="/integrations/mcp/notion">
+    Docs, databases, and organizational memory.
+  </Card>
+
+  <Card title="Confluence" icon="confluence" href="/integrations/mcp/confluence">
+    Spaces and pages via MCP.
+  </Card>
+
+  <Card title="Google Drive" icon="google-drive" href="/integrations/mcp/google-drive">
+    Search and retrieve files.
+  </Card>
+
+  <Card title="Figma" icon="figma" href="/integrations/mcp/figma">
+    Design files, frames, and specs.
+  </Card>
+
+  <Card title="PostHog" icon="chart-line" href="/integrations/mcp/posthog">
+    Product analytics through MCP.
+  </Card>
+
+  <Card title="Custom MCP Server" icon="plug-circle-plus" href="/integrations/mcp/custom">
+    Register any MCP-compatible server.
+  </Card>
+</CardGroup>
+
+## Adding an integration
+
+<Steps>
+  <Step title="Open Integrations">
+    In the Corunner web app, go to **Integrations**.
+  </Step>
+  <Step title="Pick the connector">
+    Choose the **Direct Connections** tab for native integrations, or **MCP Servers** for MCP.
+  </Step>
+  <Step title="Complete the connect flow">
+    OAuth pops a consent window. API key, PAT, service account, and Forge flows use the fields in the connection card.
+  </Step>
+  <Step title="Verify">
+    A successful connection turns the card into a connected state. Agents can now use the new tool immediately.
+  </Step>
+</Steps>
+
+<Note>
+  Adding, editing, or disconnecting integrations is admin-only. See [Roles & Access](/get-started/roles-and-access).
+</Note>
+
+New connectors ship regularly. If you want a tool that is not listed today, register it through [Custom MCP Server](/integrations/mcp/custom) or ask your Corunner contact whether a native connector is on the roadmap.

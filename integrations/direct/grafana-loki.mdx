@@ -1,0 +1,30 @@
+---
+title: "Connect Grafana Loki to Corunner for Log Investigation"
+sidebarTitle: "Grafana Loki"
+description: "Investigate production logs with Grafana Loki. Corunner reads logs, discovers labels, and generates evidence links for incident debugging."
+---
+
+Grafana Loki is a Direct Connection that lets Corunner investigate production logs. Once connected, the Debug/Diagnostics Agent can query logs, discover the labels available in your Loki setup, and generate evidence links you can paste back into a Slack or Teams thread.
+
+## What Corunner does with Grafana Loki
+
+Agents run log queries when investigating incidents, discover which labels are available so queries stay in scope, and produce evidence links that let humans open Grafana with the exact query pre-loaded.
+
+## What you get
+
+- Read logs
+- Discover labels
+- Generate evidence links
+
+## Authentication
+
+Connect with an API key you generate in Grafana. Paste the key and the Loki URL into the connection card in Corunner.
+
+## What breaks if you disconnect
+
+- Log investigation
+- Incident evidence
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Grafana Loki** under the **Direct Connections** tab.

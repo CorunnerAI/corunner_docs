@@ -1,0 +1,35 @@
+---
+title: "How Approvals Work Inside Chat With Corunner"
+sidebarTitle: "Approvals in Chat"
+description: "Any action that touches production, customers, or people requires human approval. Approve, edit, or reject proposed actions inline in Slack or Microsoft Teams."
+---
+
+Corunner uses human approval by default. Any action that touches a production system, a customer, or a person appears in chat with **Approve**, **Edit**, and **Reject** controls attached to Corunner's message. There is no separate approval queue to check.
+
+## Where approvals happen
+
+Approvals happen where Corunner proposes the action: the same Slack thread, Teams channel, or DM. Anyone in the thread with the right permission can act on the request. You never need to switch to the web app to unblock work.
+
+## The three controls
+
+- **Approve** — Corunner runs the proposed action immediately.
+- **Edit** — Adjust the parameters before running (for example, change the recipient, the ticket title, or the message body).
+- **Reject** — Cancel the action. Corunner will not run it and records the reasoning for future context.
+
+## What triggers an approval
+
+Corunner asks for approval based on your **governance policies**. These decide which categories of work always run automatically, which always require approval, and which fall in between based on Corunner's confidence.
+
+<CardGroup cols={2}>
+  <Card title="Governance policies" icon="scale-balanced" href="/admin/governance">
+    Set what runs automatically, what needs approval, and what to block.
+  </Card>
+
+  <Card title="Approvals history" icon="clock-rotate-left" href="/admin/approvals-history">
+    A read-only log of every approval Corunner has requested.
+  </Card>
+</CardGroup>
+
+## Approvals history in the web app
+
+The `/approvals` page in the web app is a **read-only history** of past approval requests. You cannot act on approvals from that page. Use it to audit past decisions or share links to specific requests. See [Approvals History](/admin/approvals-history).

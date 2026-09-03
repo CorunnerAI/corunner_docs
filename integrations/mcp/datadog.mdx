@@ -1,0 +1,213 @@
+---
+title: "Connect Datadog as an MCP Server in Corunner"
+sidebarTitle: "Datadog"
+description: "Link Datadog to Corunner as an MCP server for read-only incident and reliability investigation through OAuth. Manage connection, observation, and usage guidance."
+---
+
+Datadog via MCP gives Corunner agents a read-only interface for production and incident investigation. This page covers how to connect Datadog, configure usage guidance, verify capabilities, and manage the connection in Corunner.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Datadog" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | [https://mcp.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.datadoghq.com/api/unstable/mcp-server/mcp) (managed by Corunner) |
+| Authentication | OAuth |
+| Category | monitoring |
+| Used for | read-only production investigation through Datadog MCP |
+| Provider docs | [Datadog MCP Server Setup](https://docs.datadoghq.com/mcp_server/setup/) |
+| Auth link | n/a |
+
+<Accordion title="Datadog site options">
+  When a locked endpoint is used, only OAuth is available in the Authentication row. Choose the site matching your Datadog organization:
+
+  - US1 - datadoghq.com → [https://mcp.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.datadoghq.com/api/unstable/mcp-server/mcp)
+  - US3 - us3.datadoghq.com → [https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp)
+  - US5 - us5.datadoghq.com → [https://mcp.us5.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.us5.datadoghq.com/api/unstable/mcp-server/mcp)
+  - EU1 - datadoghq.eu → [https://mcp.datadoghq.eu/api/unstable/mcp-server/mcp](https://mcp.datadoghq.eu/api/unstable/mcp-server/mcp)
+  - AP1 - ap1.datadoghq.com → [https://mcp.ap1.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.ap1.datadoghq.com/api/unstable/mcp-server/mcp)
+  - AP2 - ap2.datadoghq.com → [https://mcp.ap2.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.ap2.datadoghq.com/api/unstable/mcp-server/mcp)
+</Accordion>
+
+## Connect Datadog
+
+<Steps>
+  <Step title="Sign in">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open **Integrations** in the left sidebar.
+  </Step>
+  <Step title="Select MCP Servers">
+    Select the **MCP Servers** tab.
+  </Step>
+  <Step title="Find the Datadog card">
+    Find the **Datadog** card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    Turn on the **Connect** toggle. The **Connect Datadog** modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    Verify the prefilled Server name ("Datadog" by default; rename if you run multiple instances).
+  </Step>
+  <Step title="Verify the Server URL">
+    Verify the prefilled Server URL. Value: `https://mcp.datadoghq.com/api/unstable/mcp-server/mcp`. If Corunner manages the endpoint, the field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step title="Click Test URL">
+    Click **Test URL** to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select authentication">
+    Select the authentication method (prefilled **OAuth**).
+  </Step>
+  <Step title="Open Advanced (optional)">
+    Optionally click **Advanced** to expand custom headers and Usage guidance.
+  </Step>
+  <Step title="Enter Usage guidance">
+    Enter Usage guidance describing when and how agents should use this server (see the next section for a copyable example).
+  </Step>
+  <Step title="Click Connect with Datadog">
+    Click **Connect with Datadog** (OAuth).
+  </Step>
+  <Step title="Authorize with Datadog">
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step title="Approve permissions">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm Connected">
+    Confirm a green **Connected** badge and an enabled **Connected** toggle on the **Datadog** card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended for safe, consistent behavior. Good guidance answers six purposes:
+
+- **When** should agents use this server?
+- **What** specific tasks should they perform?
+- **Which** tasks are permitted?
+- **Which** tasks require human approval?
+- **What** must not be accessed?
+- **How** should results be presented?
+
+<Warning>
+  Never enter secrets into Usage guidance. This field is for instructions, not credentials.
+</Warning>
+
+Copy and adapt this example:
+
+```text
+Use Datadog MCP for read-only incident and reliability investigation. Prefer search logs and inspect metrics and traces to answer live production questions. Read monitors and incidents to explain the current alert state. Do not attempt any write action. Present findings with the metric name, monitor name, or trace ID and a link to the Datadog view.
+```
+
+## Verify the Connection
+
+After a successful connection, the **Datadog** card shows:
+
+- a green **Connected** status pill on the name row
+- an enabled **Connected** toggle
+- a meta line such as **Connected to `<workspace>`** with a relative time
+- a **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+Datadog exposes the following capabilities to Corunner agents:
+
+- search logs
+- inspect metrics and traces
+- read monitors and incidents
+- review dashboards and events
+- read-only beta
+
+<Info>
+  This integration is in read-only beta; the specific tools loaded from the Datadog MCP server may evolve. Click the capability count on the connected card to see the current tool list.
+</Info>
+
+## Check Connection Health
+
+On the connected card, the **Test connection** icon (Wi-Fi glyph next to the **Connected** toggle) runs a live probe of the server.
+
+- Green check = reachable and credentials valid
+- Red warning = probe failed
+
+If the test fails, open **Edit configuration** to refresh credentials or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the connected card to update the connection.
+
+Editable fields:
+
+- Server name
+- Server URL (only if not managed by Corunner for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under **Advanced**)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and changing observation consent are admin-only actions. Members can view status and capabilities but cannot modify the connection.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the connected card to open the **Observation consent - Datadog** drawer.
+
+Observation is separate from tool connection. It controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected.
+
+Scopes have **Mode** (`Disabled` / `Shadow` / `Active`) and **Sensitivity** (`Standard` / `Restricted` / `Excluded`). Excluded scopes cannot be enabled.
+
+<Warning>
+  "Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled."
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+Creating, editing, disconnecting, and changing observation consent are admin-only.
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Datadog?** dialog |
+| Confirm Disconnect Datadog | Removes connection, credentials, Usage guidance, and headers; you can reconnect any time |
+| Revoke on provider | Provider invalidates the token; the next call fails, the card enters an error state, and prompts reconnect |
+| Temporarily disable | Not a separate state today; disconnect and reconnect as needed |
+| Delete configuration | Same as disconnect; there is no separate delete |
+
+## Connect Datadog
+
+<CardGroup cols={1}>
+  <Card title="Connect with Datadog" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Datadog Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Direct Datadog connector" icon="database" href="/integrations/direct/datadog">
+    Send monitors and metrics directly into Corunner memory.
+  </Card>
+
+  <Card title="Integrations overview" icon="grid" href="/integrations/overview">
+    Browse all available integrations and connection types.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory from observations.
+  </Card>
+</CardGroup>

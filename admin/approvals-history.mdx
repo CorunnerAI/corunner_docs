@@ -1,0 +1,35 @@
+---
+title: "Approvals History: A Read-Only Log of Corunner Approvals"
+sidebarTitle: "Approvals History"
+description: "The Approvals page in the web app is a read-only history of agent approval requests. Approvals themselves are acted on in chat, not here."
+---
+
+The Approvals page in the Corunner web app is a **read-only history** of every approval request an agent has raised. Approvals are acted on in chat, not on this page.
+
+App description reads: _"A read-only history of agent approval requests. Approvals are acted on in chat, not here."_
+
+## What is on the page
+
+Approval cards show the requesting agent, what the agent proposed to do, the workspace and channel where it was raised, and the current state (pending, approved, edited, rejected). The list updates live as new approvals come in through Corunner's websocket connection.
+
+If there are no approvals yet, the page shows: _"When an agent requests approval, it will appear here, act on it from chat."_
+
+## Why acting stays in chat
+
+Approvals live where the work is proposed: the Slack thread or Teams message. That way whoever has the context can act on the request without opening the web app. See [Approvals in chat](/chat/approvals-in-chat) for the flow.
+
+## Loading history
+
+The page paginates. Use **Load more** at the bottom to fetch older approvals.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Approvals in chat" icon="check" href="/chat/approvals-in-chat">
+    How Approve, Edit, and Reject work in Slack and Teams.
+  </Card>
+
+  <Card title="Governance" icon="scale-balanced" href="/admin/governance">
+    The policies that decide when approvals are required.
+  </Card>
+</CardGroup>

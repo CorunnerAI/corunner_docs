@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "theme": "aspen",
+  "name": "Corunner",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#ff570a",
+    "light": "#ff722b",
+    "dark": "#e54b00"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -18,55 +18,140 @@
         ]
       }
     ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "index",
+          "quickstart",
+          "get-started/roles-and-access"
+        ]
+      },
+      {
+        "group": "Chat With Corunner",
+        "pages": [
+          "chat/overview",
+          "chat/slack",
+          "chat/microsoft-teams",
+          "chat/approvals-in-chat",
+          "chat/multimodal"
+        ]
+      },
+      {
+        "group": "Agents & Standups",
+        "pages": [
+          "agents/overview",
+          "agents/roster",
+          "agents/enable-and-disable",
+          "agents/skills",
+          "agents/standups"
+        ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
+          "integrations/overview",
+          {
+            "group": "Direct Connections",
+            "pages": [
+              "integrations/direct/inbound-email",
+              "integrations/direct/discord",
+              "integrations/direct/linear",
+              "integrations/direct/jira-confluence",
+              "integrations/direct/github",
+              "integrations/direct/gitlab",
+              "integrations/direct/bitbucket",
+              "integrations/direct/harness",
+              "integrations/direct/jenkins",
+              "integrations/direct/circleci",
+              "integrations/direct/vercel",
+              "integrations/direct/sentry",
+              "integrations/direct/datadog",
+              "integrations/direct/grafana-loki",
+              "integrations/direct/salesforce",
+              "integrations/direct/hubspot",
+              "integrations/direct/zoho-crm",
+              "integrations/direct/bamboohr",
+              "integrations/direct/rippling",
+              "integrations/direct/workday",
+              "integrations/direct/darwinbox",
+              "integrations/direct/netsuite",
+              "integrations/direct/sap",
+              "integrations/direct/quickbooks",
+              "integrations/direct/zoho-books",
+              "integrations/direct/stripe",
+              "integrations/direct/chargebee",
+              "integrations/direct/google-calendar",
+              "integrations/direct/outlook-calendar",
+              "integrations/direct/zoom",
+              "integrations/direct/google-meet",
+              "integrations/direct/quantive",
+              "integrations/direct/perdoo",
+              "integrations/direct/jira-align"
+            ]
+          },
+          {
+            "group": "MCP Servers",
+            "pages": [
+              "integrations/mcp/notion",
+              "integrations/mcp/confluence",
+              "integrations/mcp/datadog",
+              "integrations/mcp/posthog",
+              "integrations/mcp/google-drive",
+              "integrations/mcp/sharepoint",
+              "integrations/mcp/dropbox",
+              "integrations/mcp/box",
+              "integrations/mcp/figma",
+              "integrations/mcp/miro",
+              "integrations/mcp/coda",
+              "integrations/mcp/guru",
+              "integrations/mcp/slab",
+              "integrations/mcp/context7",
+              "integrations/mcp/sentry",
+              "integrations/mcp/exa",
+              "integrations/mcp/github-copilot",
+              "integrations/mcp/custom"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Workspace Administration",
+        "pages": [
+          "admin/dashboard",
+          "admin/memory",
+          "admin/analytics",
+          "admin/governance",
+          "admin/approvals-history",
+          "admin/settings"
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "Book Demo",
+      "href": "https://corunner.ai/demo"
     }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/corunnerai",
+      "linkedin": "https://www.linkedin.com/company/corunner",
+      "instagram": "https://www.instagram.com/corunner.ai"
+    }
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "background": {
+    "color": {
+      "dark": "#07070a"
     }
   }
 }

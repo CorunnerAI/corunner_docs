@@ -1,0 +1,52 @@
+---
+title: "User Roles and Access in Corunner"
+sidebarTitle: "Roles & Access"
+description: "How organization and workspace roles map to what a user can see and do in Corunner: owners, admins, and members across install, agents, memory, and settings."
+---
+
+Corunner has two role systems: **organization roles** for the tenant and **workspace roles** for each connected workspace. Both use the same three tiers, and admin-only surfaces are gated on both the UI and the backend.
+
+## Organization roles
+
+Set when a user is added to the Corunner organization.
+
+| Role | What they can do |
+| --- | --- |
+| Owner | Everything an Admin can do, plus billing. Only Owners can manage the plan. |
+| Admin | Install and connect workspaces, connect integrations, manage agents and skills, set governance policies, view audit log, manage team and channels. |
+| Member | Sign in, chat with `@Corunner`, view enabled agents, browse Memory and Learnings, view Standup history. |
+
+## Workspace roles
+
+Set per connected workspace (Slack workspace or Teams tenant).
+
+| Role | What they can do |
+| --- | --- |
+| Owner | Full control of the workspace inside Corunner. |
+| Admin | Configure workspace-scoped settings, agents, and standups. |
+| Member | Participate in chat and view workspace-scoped surfaces. |
+
+## What is admin-only
+
+The following surfaces are only visible to owners and admins. Members either do not see the tab at all or see it in read-only mode.
+
+- **Settings → Audit Log** — hidden from members.
+- **Memory → Review** and **Memory → Insights** — hidden from members.
+- **Agents → Roster** — members can see which agents are enabled but cannot toggle them.
+- **Agents → Skills** — only admins can add or revert workspace-specific skill overrides.
+- **Standups** — only admins can create, edit, pause, resume, or delete standups.
+- **Governance → Policies** — only admins can change approval and safety policies.
+- **Integrations** — only admins can add, edit, or disconnect connections.
+
+## Installing Corunner
+
+Installing the Corunner app in Slack or Microsoft Teams is enforced by the provider itself:
+
+- **Slack** requires a Slack workspace admin to approve the install.
+- **Microsoft Teams** requires a Teams admin to approve the permissions.
+
+If a member reaches the install screen, Corunner shows an **ask your admin** message with a shareable link they can send to the person who can complete the install.
+
+## Billing
+
+Billing is Owner-only. Members and Admins do not see billing pages. This documentation does not cover pricing or plan management. Contact your Corunner Owner or your Corunner account team for plan details.

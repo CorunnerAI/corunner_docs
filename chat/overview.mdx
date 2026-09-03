@@ -1,0 +1,44 @@
+---
+title: "Chat with Corunner in Slack and Microsoft Teams"
+sidebarTitle: "Overview"
+description: "How Corunner runs inside the chat tools your team already uses: routing, streaming replies, human approval, and multimodal reasoning across Slack and Teams."
+---
+
+Corunner runs inside the chat tools your team already uses. You mention `@Corunner` in any channel, thread, or DM and the right specialist picks up the request. Reasoning streams back into the thread, and proposed actions are approved in place.
+
+<CardGroup cols={2}>
+  <Card title="Slack" icon="slack" href="/chat/slack">
+    Mention `@Corunner` in any channel, thread, or DM in Slack.
+  </Card>
+
+  <Card title="Microsoft Teams" icon="microsoft" href="/chat/microsoft-teams">
+    Bring Corunner into Teams channels and chats across your tenant.
+  </Card>
+
+  <Card title="Approvals in chat" icon="check" href="/chat/approvals-in-chat">
+    Approve, edit, or reject any proposed action right where it is proposed.
+  </Card>
+
+  <Card title="Multimodal" icon="image" href="/chat/multimodal">
+    Drop in screenshots, diagrams, and mockups. Corunner reads them in the thread.
+  </Card>
+</CardGroup>
+
+## How it works
+
+1. You mention `@Corunner` or reply in a thread it is already part of.
+2. Corunner reads the surrounding context from the thread and from the tools you have connected.
+3. A specialist agent (PM, Engineering, Standup, Assistant, and more) picks up the request. You do not have to route by hand.
+4. Reasoning streams back into the thread as a reply, with citations from your stack where relevant.
+5. If the response includes an action that touches a production system, a customer, or a person, the message includes **Approve**, **Edit**, and **Reject** controls.
+
+## What is unique in chat
+
+- **One `@Corunner`, the right specialist every time.** You do not pick who to ask. The Assistant is the default fallback if no specialist fits.
+- **Context is preserved.** Corunner remembers earlier conversations in the same team so it does not start from zero each time.
+- **Human approval by default.** Approvals are acted on in chat, not in the web app. The `/approvals` page in the web app is a read-only history.
+- **Multimodal inputs.** Screenshots, diagrams, whiteboards, and product mockups can be posted directly into a thread.
+
+## What the web app is for
+
+The web app exists for setup and administration. Day-to-day work stays in chat. See the [Workspace Administration](/admin/dashboard) section for what admins do outside chat.

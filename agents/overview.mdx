@@ -1,0 +1,42 @@
+---
+title: "Corunner Agents: A Team of Specialists in Chat"
+sidebarTitle: "Overview"
+description: "Corunner runs as a team of specialist agents. Mention @Corunner and the right specialist takes the request, with the Assistant as the fallback."
+---
+
+Corunner runs as a team of specialists, each excellent at one kind of work. You do not have to remember who does what: mention `@Corunner` anywhere and the right specialist picks up the request. The **Assistant** is the default fallback when no specialist fits.
+
+## Core and Advanced
+
+Agents come in two tiers:
+
+- **Core** agents are included with any plan.
+- **Advanced** agents require an advanced plan. Non-entitled Advanced agents are shown locked in the roster.
+
+## What you can do
+
+<CardGroup cols={2}>
+  <Card title="Agent Roster" icon="robot" href="/agents/roster">
+    The full list of agents with what each one does.
+  </Card>
+
+  <Card title="Enable & Disable" icon="toggle-on" href="/agents/enable-and-disable">
+    Turn agents on or off per workspace. Admin-only.
+  </Card>
+
+  <Card title="Skills" icon="sparkles" href="/agents/skills">
+    Reusable thinking methods. Admins can layer org-specific guidance.
+  </Card>
+
+  <Card title="Standups" icon="calendar-check" href="/agents/standups">
+    Configure async standups run by the Standup Agent.
+  </Card>
+</CardGroup>
+
+## How routing works
+
+When you mention `@Corunner`, the system looks at the thread, your history, and the connected tools available, then routes the request to the specialist most likely to answer well. If none fits, the Assistant picks it up. You can also address a specific agent by name in your message.
+
+## Model tiers
+
+Each agent is tagged with a **model tier** (Nano, Small, Medium, Large). The tier is shown as a badge next to the agent's name in the roster. Tiers reflect the size and cost of the model Corunner routes that agent's work to.

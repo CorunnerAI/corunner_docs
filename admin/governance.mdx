@@ -1,0 +1,56 @@
+---
+title: "Governance in Corunner: Policies, Decisions, and Calibration"
+sidebarTitle: "Governance"
+description: "Set the rules for what Corunner can do on its own, what needs approval, and what to block. Review governed decisions and calibrate confidence bands."
+---
+
+Governance is Corunner's rulebook. It decides when the agents can act on their own, when they must ask for approval, and when they must stop. The Governance page in the web app has three tabs: **Policies**, **Governed Decisions**, and **Calibration**.
+
+<Note>
+  Changing governance policies is admin-only. Members can view them.
+</Note>
+
+## Policies
+
+Policies come in two types:
+
+- **Approval policies** — _"When approval is needed."_ Decide which kinds of work require a human to approve before Corunner acts.
+- **Compliance policies** — _"Safety requirements."_ Decide which kinds of work Corunner must never do, regardless of confidence.
+
+Each policy uses three rule keys. The app renders these with human-friendly labels:
+
+| Rule key | Label | What it means |
+| --- | --- | --- |
+| `alwaysBlock` | Work Corunner will stop | Categories Corunner will never act on. |
+| `alwaysApprove` | Work Corunner will ask about | Categories that always require human approval. |
+| `bands` | How sure Corunner must be | Confidence thresholds Corunner uses to decide between block, ask, approve, and auto. |
+
+### Confidence bands
+
+`bands` uses three percentage thresholds:
+
+- **`recommendMin`** — below this, Corunner blocks (does not act, does not ask).
+- **`approvalMin`** — between `recommendMin` and this value, Corunner asks for approval.
+- **`autoMin`** — between `approvalMin` and this value, Corunner approves the action itself (still visible in the audit trail). At or above `autoMin`, Corunner acts automatically.
+
+The app renders a rule like `block below 40%; ask 40-70%; approve 70-90%; auto at 90%+` from these values.
+
+## Governed Decisions
+
+A history of every decision that passed through a policy: what Corunner considered, which rule matched, and what it did. Use this tab to audit specific decisions and to spot categories where policies are firing more than expected.
+
+## Calibration
+
+Tuning tools for the confidence bands. If Corunner is asking for approval too often on high-confidence work, or acting too aggressively at the edges, calibrate the thresholds here.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Approvals in chat" icon="check" href="/chat/approvals-in-chat">
+    Where the "ask" side of policies plays out.
+  </Card>
+
+  <Card title="Approvals history" icon="clock-rotate-left" href="/admin/approvals-history">
+    Read-only history of every approval request.
+  </Card>
+</CardGroup>

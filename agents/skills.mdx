@@ -1,0 +1,55 @@
+---
+title: "Corunner Skills: How Agents Reason and Learn"
+sidebarTitle: "Skills"
+description: "Skills are the reusable thinking methods that shape how Corunner agents reason. Builtins are shared; admins can layer org-specific guidance on top."
+---
+
+Skills are how Corunner's agents reason: reusable thinking methods that describe an approach, a domain, or a framework. Builtin skills are shared across all customers and change through pull-request review. Admins can layer **org-specific guidance** on top of any builtin skill without editing the shared version.
+
+## Kinds of skills
+
+The Skills page in the web app filters by kind:
+
+- **Domain** — how to reason about a specific business area.
+- **Task** — how to complete a recurring task.
+- **Framework** — a named method or framework the agent should follow.
+- **Provider** — how to reason about a specific integration or provider.
+- **Agent** — guidance scoped to a single agent in the roster.
+- **All** — the full list.
+
+## Layer an org-specific override
+
+<Steps>
+  <Step title="Open Skills">
+    In the Corunner web app, go to **Skills**.
+  </Step>
+  <Step title="Filter to the kind you want">
+    Choose a kind (Domain, Task, Framework, Provider, Agent) or leave it on **All**.
+  </Step>
+  <Step title="Open a skill">
+    Click into the skill to see its current guidance. Your existing override is pre-filled if one exists.
+  </Step>
+  <Step title="Save your override">
+    Add your organization-specific guidance and save. Corunner runs a safety scan before accepting the override. Empty or flagged content is rejected.
+  </Step>
+</Steps>
+
+## Revert an override
+
+Reverting an override is destructive: it drops your tenant customization and returns the skill to the shared builtin behavior. Corunner asks for confirmation before reverting.
+
+<Note>
+  Authoring and reverting skill overrides is admin-only.
+</Note>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agent Roster" icon="robot" href="/agents/roster">
+    See which agents skills apply to.
+  </Card>
+
+  <Card title="Governance" icon="scale-balanced" href="/admin/governance">
+    Policies that decide what agents can do on their own.
+  </Card>
+</CardGroup>

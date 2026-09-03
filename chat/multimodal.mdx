@@ -1,0 +1,48 @@
+---
+title: "Multimodal Reasoning: Screenshots, Diagrams, and Docs"
+sidebarTitle: "Multimodal"
+description: "Drop screenshots, architecture diagrams, whiteboard photos, product mockups, or documents into any thread. Corunner reads them and proposes the next action."
+---
+
+Corunner reads images and documents directly inside chat. You do not have to describe what is on the screen. Post a screenshot, a diagram, a whiteboard photo, a mockup, or a document into any thread and mention `@Corunner`. Corunner identifies what is in the image, correlates it with your connected tools, and proposes the next action right in the conversation.
+
+## What you can drop in
+
+- Architecture and system diagrams
+- Product screenshots and error dialogs
+- Whiteboard photos
+- Design mockups and Figma screenshots
+- Documents (PDFs and images of pages)
+
+## Example prompts
+
+```text Architecture diagram
+@Corunner what's the risk in this system?
+```
+
+```text Error screenshot
+@Corunner has anyone seen this error before? Pull related incidents.
+```
+
+```text Product mockup
+@Corunner file a Linear issue for the empty-state redesign, attach the mockup.
+```
+
+## What Corunner does with the image
+
+1. Identifies the components, text, or artifacts in the image.
+2. Maps them to your organizational memory: repositories, owners, past decisions, related incidents.
+3. Proposes an action (file an issue, DM the owner, summarize the mockup for a review) with the image attached.
+4. If the proposed action needs approval, the message shows **Approve**, **Edit**, and **Reject** controls.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Chat overview" icon="comments" href="/chat/overview">
+    How Corunner runs inside Slack and Teams.
+  </Card>
+
+  <Card title="Approvals in chat" icon="check" href="/chat/approvals-in-chat">
+    Act on proposed actions without leaving the thread.
+  </Card>
+</CardGroup>

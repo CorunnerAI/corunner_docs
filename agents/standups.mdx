@@ -1,0 +1,66 @@
+---
+title: "Configure Async Standups in Corunner"
+sidebarTitle: "Standups"
+description: "Set up async standups per workspace: pick the channel, schedule, delivery mode, deadline, reminders, and daily summary. Sessions are risk-rated automatically."
+---
+
+Standups in Corunner are run by the **Standup Agent** and configured per workspace. Once a standup is set up, the day-to-day posting and reply flow happens in chat. The web app is where admins create and edit standups.
+
+<Note>
+  Creating, editing, pausing, resuming, and deleting standups is admin-only.
+</Note>
+
+## Create a standup
+
+<Steps>
+  <Step title="Open Agents → Standups">
+    In the web app, go to **Agents** and switch to the **Standups** tab.
+  </Step>
+  <Step title="Pick a channel">
+    Choose the channel where the standup will run.
+  </Step>
+  <Step title="Set a title">
+    A short label for the standup (for example, "Platform daily").
+  </Step>
+  <Step title="Set the schedule">
+    Choose the days of the week, local time, and timezone. Frequency shortcuts include **Daily**, **Weekdays**, **Weekly**, and **Custom**.
+  </Step>
+  <Step title="Choose the delivery mode">
+    Delivery modes control how prompts are sent (for example, one message per user).
+  </Step>
+  <Step title="Set the deadline">
+    Deadline is in minutes. Default is 120 minutes after the standup starts.
+  </Step>
+  <Step title="Exclude specific members (optional)">
+    Pick users who should not be prompted.
+  </Step>
+  <Step title="Enable reminders and summary (optional)">
+    Toggle **reminder** so users who have not responded get a nudge. Toggle **daily summary** and pick a time (default 17:00) to post a wrap-up.
+  </Step>
+</Steps>
+
+## Sessions and risk
+
+Each standup run creates a **session**. Sessions are automatically tagged with a **risk level**:
+
+- **Low** — nothing unusual.
+- **Medium** — some signals worth attention.
+- **High** — likely blockers or slippage; check the summary.
+
+Sessions live in the standup's history so admins can audit past runs and spot trends.
+
+## Pause, resume, delete
+
+Standups can be paused (no runs), resumed, or deleted from the same tab. Deleting a standup removes its schedule; historical session data remains available.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Standup Agent" icon="robot" href="/agents/roster">
+    The specialist that runs standups.
+  </Card>
+
+  <Card title="Settings → Channels" icon="hashtag" href="/admin/settings">
+    Control which channels Corunner can operate in.
+  </Card>
+</CardGroup>

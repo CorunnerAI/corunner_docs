@@ -1,0 +1,32 @@
+---
+title: "Connect Linear to Corunner for Issues and Standup Enrichment"
+sidebarTitle: "Linear"
+description: "Track engineering work, issues, and project execution. Corunner reads Linear issues, creates new ones, updates status, and pulls blockers into standups."
+---
+
+Linear is a Direct Connection that lets Corunner track engineering work, issues, and project execution. Once connected, agents can read your Linear workspace, create issues on your behalf, update status, and pull blockers into standups automatically.
+
+## What Corunner does with Linear
+
+Corunner treats Linear as a source of truth for engineering work. The Standup Agent pulls in-flight and blocked issues into standup prompts. The Engineering Agent references the issue graph when reasoning about scope, ownership, or delivery risk. Actions like "file a ticket" from chat write directly into Linear.
+
+## What you get
+
+- Read issues
+- Create issue
+- Update status
+- Fetch blockers
+
+## Authentication
+
+Connect with OAuth. A Linear workspace admin approves the scopes during the connect flow.
+
+## What breaks if you disconnect
+
+- Issue sync
+- Blocker tracking
+- Standup enrichment
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Linear** under the **Direct Connections** tab.

@@ -1,47 +1,102 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Quickstart: Install Corunner in Your Workspace"
+sidebarTitle: "Quickstart"
+description: "Install Corunner in Slack or Microsoft Teams, complete first-run setup, and start mentioning Corunner in a channel or thread within minutes."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+This quickstart walks a workspace admin through installing Corunner in Slack or Microsoft Teams and completing first-run setup so your team can mention `@Corunner` in any channel or thread.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
+<Note>
+  Installing Corunner in Slack or Teams requires a workspace admin. Members can sign in and use Corunner once the workspace is connected.
+</Note>
 
-## Prerequisites
+## Before you start
 
-Before you begin, you must have:
+- A Slack workspace or a Microsoft Teams tenant where you have admin rights.
+- Access to the Corunner sign-in page for your organization.
 
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+## 1. Sign in
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
-
-    ```bash
-    npm install your-package
-    ```
+  <Step title="Open the Corunner sign-in page">
+    Corunner uses SSO through your workspace provider. There is no password to set.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
-
-    ```bash
-    your-cli init
-    ```
+  <Step title="Choose your provider">
+    Sign in with **Slack** or **Microsoft Teams**. Corunner captures which provider you signed in with, so the install flow that follows matches it.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
-
-    ```bash
-    your-cli start
-    ```
+  <Step title="Land in onboarding">
+    After sign-in, the app takes you to **Connect your workspace**. You will see a single install card for the provider you signed in with.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## 2. Connect your workspace
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+<Tabs>
+  <Tab title="Slack">
+    <Steps>
+      <Step title="Click Add to Slack">
+        You need to be a Slack workspace admin. Slack will ask you to approve the channels and permissions Corunner can access.
+      </Step>
+      <Step title="Approve the install">
+        Complete Slack's OAuth consent screen. You return to Corunner with the workspace connected.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Microsoft Teams">
+    <Steps>
+      <Step title="Add the Corunner app in Teams">
+        First add the Corunner app in Microsoft Teams (from the Teams app store). Once added, come back to the Corunner onboarding page.
+
+        <Info>
+          The Teams Marketplace listing is coming soon. Your Corunner contact will share the app package if it is not yet public.
+        </Info>
+      </Step>
+      <Step title="Click Connect Microsoft Teams">
+        You need to be a Microsoft Teams admin. You will approve the permissions Corunner can access across your organization.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Tip>
+  If you are not an admin, Corunner shows you an **ask your admin** message with a shareable link you can copy and send.
 </Tip>
+
+## 3. Complete setup
+
+After the workspace is connected, Corunner takes you to `/onboarding/setup` to finalize:
+
+- Your **plan** and **seat policy** for the organization.
+- Which chat providers, channels, and members Corunner can operate in.
+
+Once setup is complete, the app opens the **Dashboard**.
+
+## 4. Talk to Corunner
+
+Go into any channel or DM in the workspace you just connected, and mention Corunner:
+
+```text Slack or Teams
+@Corunner what's blocking our launch?
+```
+
+Corunner streams its reasoning back into the thread and proposes the next action. You can **Approve**, **Edit**, or **Reject** the proposed action right there in the message.
+
+## 5. Optional next steps
+
+<CardGroup cols={2}>
+  <Card title="Connect your first integration" icon="plug" href="/integrations/overview">
+    Add tools like GitHub, Linear, Jira, Salesforce, or Notion so agents have real context.
+  </Card>
+
+  <Card title="Configure your agent roster" icon="robot" href="/agents/roster">
+    Enable specialists and set which agents are on for each workspace.
+  </Card>
+
+  <Card title="Schedule a standup" icon="calendar-check" href="/agents/standups">
+    Set up async standups in a channel with reminders and a daily summary.
+  </Card>
+
+  <Card title="Set governance policies" icon="scale-balanced" href="/admin/governance">
+    Decide what Corunner can do on its own, what needs approval, and what to block.
+  </Card>
+</CardGroup>

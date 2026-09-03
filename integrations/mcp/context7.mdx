@@ -1,0 +1,172 @@
+---
+title: "Connect Context7 as an MCP Server in Corunner"
+sidebarTitle: "Context7"
+description: "Set up Context7 as an MCP server in Corunner so agents can query library docs and dependency context for accurate, up-to-date code answers."
+---
+
+Context7 via MCP lets Corunner query up-to-date library documentation. Once connected, agents ground code answers in current APIs instead of outdated snippets from model training data.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Context7" icon="book-open" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | `https://mcp.context7.com/mcp` |
+| Authentication | API key |
+| Category | ai (engineering) |
+| Used for | code docs, dependency context |
+| Provider docs | [https://context7.com/](https://context7.com/) |
+
+## Connect Context7
+
+<Steps>
+  <Step>
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step>
+    Open Integrations in the left sidebar.
+  </Step>
+  <Step>
+    Select the MCP Servers tab.
+  </Step>
+  <Step>
+    Find the Context7 card in the grid.
+  </Step>
+  <Step>
+    Turn on the Connect toggle. The Connect Context7 modal opens.
+  </Step>
+  <Step>
+    Verify the prefilled Server name (Context7 by default; rename if you run multiple instances).
+  </Step>
+  <Step>
+    Verify the prefilled Server URL. Value: `https://mcp.context7.com/mcp`. The field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step>
+    Click Test URL to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step>
+    Select the authentication method (prefilled API key).
+  </Step>
+  <Step>
+    Click **Advanced (Optional)** to expand it. This panel contains two fields: **Custom headers** (extra HTTP headers Corunner sends to the server, one key/value pair per row) and **Usage guidance** (a free-text instruction that tells agents when and how to use this server). Corunner appends the guidance to every tool description sent to the agent, so it directly influences when the agent picks Context7 over another source.
+  </Step>
+  <Step>
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which libraries or topics to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step>
+    Click Connect.
+  </Step>
+  <Step>
+    Confirm a green Connected badge and an enabled Connected toggle on the Context7 card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when to use Context7, what tasks are allowed, which tasks require approval, what must not be accessed, and how to present results. Write it in plain language; agents read it before each interaction with the server.
+
+<Warning>
+  Never enter secrets, API keys, tokens, or passwords into the Usage guidance field. This field is passed to the model as instruction text and is not a secure vault.
+</Warning>
+
+```text
+Use Context7 when the user asks about a specific library, framework, or SDK API. Prefer resolve libraries to disambiguate the exact package and version, then fetch docs for the relevant sections. Do not use Context7 for internal company APIs. Present code answers with a short quoted excerpt and the source URL.
+```
+
+## Verify the Connection
+
+After you connect, the Context7 card shows:
+
+- A green **Connected** status pill on the name row
+- An enabled **Connected** toggle
+- A **Connected to `<workspace>`** meta line with relative time (exact workspace name and time vary by user)
+- An expandable **`<N> capabilities`** button
+
+### Capabilities
+
+Context7 exposes the following capabilities to Corunner agents:
+
+- fetch docs
+- resolve libraries
+
+## Check Connection Health
+
+On the Context7 card, click the **Test connection** icon (Wi-Fi glyph) next to the Connected toggle. This runs a live probe against the server.
+
+- Green check: the endpoint is reachable and the stored credentials are valid.
+- Red warning: the probe failed.
+
+If the test fails, open **Edit configuration** to refresh the API key or verify the URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the Context7 card to open the edit modal. You can change:
+
+- Server name
+- Server URL (only if not managed by Corunner; read-only for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under Advanced)
+- Usage guidance
+
+<Info>
+  Creating, editing, and disconnecting MCP servers are admin-only actions. Members see status and capabilities but cannot modify the configuration.
+</Info>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the Context7 card. Observation is separate from tool connection: it controls whether Corunner passively reads resources into organizational memory, while capabilities available to agents are unaffected.
+
+Scopes have:
+
+- **Mode**: `Disabled`, `Shadow`, or `Active`
+- **Sensitivity**: `Standard`, `Restricted`, or `Excluded`
+
+Excluded scopes cannot be enabled. The drawer title is `Observation consent - Context7`.
+
+<Info>
+  Observation consent changes are admin-only.
+</Info>
+
+<Note>
+  The precise effect on organizational memory of toggling observation off should be confirmed with the Corunner product team if you plan to depend on it in policy. See [Memory & Learnings](/admin/memory) for more details.
+</Note>
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Context7?** dialog |
+| Confirm Disconnect Context7 | Removes connection, credentials, Usage guidance, and headers. You can reconnect any time. |
+| Revoke on provider | The provider invalidates the token. The next call fails, the card enters an error state, and you are prompted to reconnect. |
+| Temporarily disable | Not a separate state today. Disconnect and reconnect as needed. |
+| Delete configuration | Same as Disconnect. There is no separate delete action. |
+
+## Connect Context7
+
+<CardGroup cols={1}>
+  <Card title="Connect with Context7" icon="book-open" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Context7 Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={3}>
+  <Card title="Integrations Overview" icon="plug" href="/integrations/overview">
+  </Card>
+
+  <Card title="Agent Roster" icon="users" href="/agents/roster">
+  </Card>
+
+  <Card title="Governance" icon="shield" href="/admin/governance">
+  </Card>
+</CardGroup>

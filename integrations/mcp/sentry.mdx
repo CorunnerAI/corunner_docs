@@ -1,0 +1,195 @@
+---
+title: "Connect Sentry as an MCP Server in Corunner"
+sidebarTitle: "Sentry"
+description: "Link Sentry to Corunner as an MCP server for error triage and regression context via OAuth. Manage connection, observation, and usage guidance."
+---
+
+Sentry via MCP gives Corunner agents a read-only interface for error triage and regression investigation. This page covers how to connect Sentry, configure usage guidance, verify capabilities, and manage the connection in Corunner.
+
+<CardGroup cols={1}>
+  <Card title="Connect with Sentry" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Open the MCP Servers tab in the Corunner web app.
+  </Card>
+</CardGroup>
+
+## Server details
+
+| Field | Value |
+| --- | --- |
+| Server URL | [https://mcp.sentry.dev/mcp](https://mcp.sentry.dev/mcp) (managed by Corunner) |
+| Authentication | OAuth |
+| Category | monitoring |
+| Used for | error triage, regression context |
+| Provider docs | [Sentry MCP](https://docs.sentry.io/product/sentry-mcp/) |
+| Auth link | n/a |
+
+## Connect Sentry
+
+<Steps>
+  <Step title="Sign in">
+    Sign in to Corunner at app.corunner.ai.
+  </Step>
+  <Step title="Open Integrations">
+    Open **Integrations** in the left sidebar.
+  </Step>
+  <Step title="Select MCP Servers">
+    Select the **MCP Servers** tab.
+  </Step>
+  <Step title="Find the Sentry card">
+    Find the **Sentry** card in the grid.
+  </Step>
+  <Step title="Turn on the Connect toggle">
+    Turn on the **Connect** toggle. The **Connect Sentry** modal opens.
+  </Step>
+  <Step title="Verify the Server name">
+    Verify the prefilled Server name ("Sentry" by default; rename if you run multiple instances).
+  </Step>
+  <Step title="Verify the Server URL">
+    Verify the prefilled Server URL. Value: `https://mcp.sentry.dev/mcp`. If Corunner manages the endpoint, the field shows a "Managed by Corunner" hint and is read-only.
+  </Step>
+  <Step title="Click Test URL">
+    Click **Test URL** to confirm the endpoint format is valid and the server responds.
+  </Step>
+  <Step title="Select authentication">
+    Select the authentication method (prefilled **OAuth**).
+  </Step>
+  <Step title="Click Advanced (Optional)">
+    Expand the **Advanced (Optional)** panel. It contains the **Usage guidance** field, a free-text instruction that tells agents when and how to use this server. Corunner appends what you enter here to every tool description sent to the agent, so it directly influences when the agent picks Sentry over another source. Custom headers are hidden for OAuth servers.
+  </Step>
+  <Step title="Enter Usage guidance">
+    In the **Usage guidance** field (placeholder: _Tell agents when and how to use this server…_), describe when this server should be used, which projects or issue types to prefer, what needs human approval, and what must not be accessed. Keep it short and imperative. Max 2000 characters. See the next section for a copyable example.
+  </Step>
+  <Step title="Click Connect with Sentry">
+    Click **Connect with Sentry** (OAuth).
+  </Step>
+  <Step title="Authorize with Sentry">
+    Corunner redirects the current tab to the provider's authorization page.
+  </Step>
+  <Step title="Approve permissions">
+    Review and approve the requested permissions in the provider consent screen.
+  </Step>
+  <Step title="Return to Corunner">
+    After approval, return to Corunner automatically.
+  </Step>
+  <Step title="Confirm Connected">
+    Confirm a green **Connected** badge and an enabled **Connected** toggle on the **Sentry** card.
+  </Step>
+</Steps>
+
+## Configure Usage Guidance
+
+Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended for safe, consistent behavior. Good guidance answers six purposes:
+
+- **When** should agents use this server?
+- **What** specific tasks should they perform?
+- **Which** tasks are permitted?
+- **Which** tasks require human approval?
+- **What** must not be accessed?
+- **How** should results be presented?
+
+<Warning>
+  Never enter secrets into Usage guidance. This field is for instructions, not credentials.
+</Warning>
+
+Copy and adapt this example:
+
+```text
+Use Sentry MCP for error triage. When a user reports a bug or a service alert appears, search issues for the message or fingerprint and read events for the top matching issue. Present the issue title, environment, first and last seen, and the affected release. Do not attempt to assign or comment; escalate to the on-call engineer with a link.
+```
+
+## Verify the Connection
+
+After a successful connection, the **Sentry** card shows:
+
+- a green **Connected** status pill on the name row
+- an enabled **Connected** toggle
+- a meta line such as **Connected to `<workspace>`** with a relative time
+- a **`<N> capabilities`** button that expands into the capability list
+
+### Capabilities
+
+Sentry exposes the following capabilities to Corunner agents:
+
+- search issues
+- read events
+
+## Check Connection Health
+
+On the connected card, the **Test connection** icon (Wi-Fi glyph next to the **Connected** toggle) runs a live probe of the server.
+
+- Green check = reachable and credentials valid
+- Red warning = probe failed
+
+If the test fails, open **Edit configuration** to refresh credentials or update the Server URL.
+
+## Edit Configuration
+
+Click the **Edit configuration** icon (settings glyph) on the connected card to update the connection.
+
+Editable fields:
+
+- Server name
+- Server URL (only if not managed by Corunner for this server)
+- Authentication method and credentials
+- Custom headers (non-OAuth only, under **Advanced**)
+- Usage guidance
+
+<Note>
+  Creating, editing, disconnecting, and changing observation consent are admin-only actions. Members can view status and capabilities but cannot modify the connection.
+</Note>
+
+## Manage Observation Consent
+
+Click the **Observation consent** icon (brain glyph) on the connected card to open the **Observation consent - Sentry** drawer.
+
+Observation is separate from tool connection. It controls whether Corunner passively reads resources into organizational memory, while capabilities are unaffected.
+
+Scopes have **Mode** (`Disabled` / `Shadow` / `Active`) and **Sensitivity** (`Standard` / `Restricted` / `Excluded`). Excluded scopes cannot be enabled.
+
+<Warning>
+  "Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled."
+</Warning>
+
+<Note>
+  The precise effect on [Memory & Learnings](/admin/memory) for advanced modes should be confirmed with the Corunner product team if you plan to depend on it in policy.
+</Note>
+
+Creating, editing, disconnecting, and changing observation consent are admin-only.
+
+## Disable or Disconnect
+
+<Warning>
+  Disconnecting deletes stored credentials for this connection. Provider-side OAuth tokens should also be revoked from the provider account if you want to eliminate them entirely.
+</Warning>
+
+| Action | Effect |
+| --- | --- |
+| Turn off Connected toggle | Opens the **Disconnect Sentry?** dialog |
+| Confirm Disconnect Sentry | Removes connection, credentials, Usage guidance, and headers; you can reconnect any time |
+| Revoke on provider | Provider invalidates the token; the next call fails, the card enters an error state, and prompts reconnect |
+| Temporarily disable | Not a separate state today; disconnect and reconnect as needed |
+| Delete configuration | Same as disconnect; there is no separate delete |
+
+## Connect Sentry
+
+<CardGroup cols={1}>
+  <Card title="Connect with Sentry" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
+    Ready to go? Open the MCP Servers tab and turn on the Sentry Connect toggle.
+  </Card>
+</CardGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Direct Sentry connector" icon="database" href="/integrations/direct/sentry">
+    Send issues and releases directly into Corunner memory.
+  </Card>
+
+  <Card title="Integrations overview" icon="grid" href="/integrations/overview">
+    Browse all available integrations and connection types.
+  </Card>
+
+  <Card title="Memory & Learnings" icon="brain" href="/admin/memory">
+    Learn how Corunner builds organizational memory from observations.
+  </Card>
+</CardGroup>

@@ -1,0 +1,71 @@
+---
+title: "Connect GitHub to Corunner for PR Signals and CI Context"
+sidebarTitle: "GitHub"
+description: "Connect repositories, pull requests, and CI checks. Corunner tracks PR signals, review load, and deploy activity. Also the trigger for the Doc-Writer Agent."
+---
+
+GitHub is a Direct Connection that lets Corunner read from your repositories, pull requests, checks, and commits. It is the foundation for engineering signals across the product and the trigger for the [Doc-Writer Agent](/agents/roster), which runs on PR merge.
+
+## What Corunner does with GitHub
+
+Agents watch pull requests and check runs to build **PR signals** (who is blocked on a review, how long PRs sit open, which branches are flaky) and **deploy tracking** based on merges to release branches. The Debug/Diagnostics Agent correlates GitHub commits with incidents to help diagnose regressions.
+
+## What you get
+
+- Read repos
+- Read pull requests
+- Read checks
+- Read commits
+
+## Authentication
+
+Connect with OAuth. A GitHub organization owner approves the scopes and repository access during the connect flow.
+
+## What breaks if you disconnect
+
+- PR signals
+- Review-load insights
+- Deploy tracking
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **GitHub** under the **Direct Connections** tab.
+
+<Frame caption="GitHub card under the Direct Connections tab in Corunner.">
+  ![Corunner Integrations page showing the GitHub card under the Direct Connections tab](/images/integrations/direct/github/manage-integrations.png)
+</Frame>
+
+## Approve access on GitHub
+
+When you click **Connect GitHub**, Corunner opens a hosted OAuth modal titled **Connect GitHub** with the tagline _Connect repositories, pull requests, and CI checks._ The modal shows a **Redirecting you to GitHub…** callout and a fallback **Continue to GitHub** button in case the automatic redirect does not fire. An info callout below reminds you: _Corunner never sees your password — only the scopes you approve. You can revoke access any time by disconnecting._
+
+Click **Continue to GitHub** (or wait for the automatic redirect). GitHub takes over and asks where to install the **CorunnerAI** GitHub App.
+
+<Frame caption='GitHub prompts you to choose the account or organization to install "CorunnerAI" in.'>
+  ![GitHub Install CorunnerAI screen listing personal accounts and organizations to choose from](/images/integrations/direct/github/install-corunner-app.png)
+</Frame>
+
+On the **Install CorunnerAI** screen:
+
+<Steps>
+  <Step title="Pick the target account or organization">
+    Select the personal account or organization that owns the repositories you want Corunner to see. Only owners and members with the **Install GitHub Apps** permission can install on an organization.
+  </Step>
+  <Step title="Choose repository access">
+    On the next screen, choose **All repositories** or **Only select repositories** and pick the specific repos. You can change this later from **GitHub → Settings → Applications → Installed GitHub Apps → CorunnerAI → Configure**.
+  </Step>
+  <Step title="Review permissions">
+    GitHub lists the scopes CorunnerAI is requesting: read repos, read pull requests, read checks, and read commits. These map to the capabilities listed above.
+  </Step>
+  <Step title="Click Install & Authorize">
+    GitHub completes the install, then redirects your tab back to Corunner. The **Connect GitHub** modal flips to **GitHub connected successfully** and closes automatically. The GitHub card in Corunner now shows a green **Connected** badge with the connected account name.
+  </Step>
+</Steps>
+
+<Tip>
+  If the automatic redirect back to Corunner does not happen (rare, usually a browser extension blocking it), return to the Corunner tab manually. Corunner re-checks the connection state whenever the tab regains focus, so the card will flip to **Connected** on its own.
+</Tip>
+
+<Tip>
+  For read-only access to code via the Model Context Protocol, see the [GitHub Copilot MCP](/integrations/mcp/github-copilot) connection.
+</Tip>

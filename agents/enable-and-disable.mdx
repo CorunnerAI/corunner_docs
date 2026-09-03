@@ -1,0 +1,40 @@
+---
+title: "Enable and Disable Corunner Agents per Workspace"
+sidebarTitle: "Enable & Disable"
+description: "How admins turn Corunner agents on or off per workspace, why disabling requires confirmation, and how members see agent state without toggling it."
+---
+
+Each workspace controls which agents are enabled. Turning an agent on is non-destructive and takes effect immediately. Turning one off stops the agent from responding in that workspace and asks for explicit confirmation first.
+
+<Note>
+  Enabling and disabling agents is admin-only. Members can see the enabled or disabled state of every agent but cannot toggle the switch.
+</Note>
+
+## Toggle an agent
+
+<Steps>
+  <Step title="Open Agents">
+    In the Corunner web app, go to **Agents**. The **Roster** tab is selected by default.
+  </Step>
+  <Step title="Find the agent">
+    Each agent appears as a card with its name, tier badge (Core or Advanced), model tier badge, and description.
+  </Step>
+  <Step title="Toggle the switch">
+    Flip the switch on the right side of the card. Enabling applies immediately.
+  </Step>
+  <Step title="Confirm on disable">
+    If you are turning the agent off, Corunner asks you to confirm because the agent will stop responding in this workspace until it is re-enabled.
+  </Step>
+</Steps>
+
+## Non-entitled agents
+
+Advanced agents on a plan that does not include them appear **locked** in the roster with a "Not in your plan" badge. Members and admins can see them, but the toggle is not available. Contact your Corunner account team to change your plan.
+
+## Configure an agent
+
+Some agents have their own configuration dialog:
+
+- **Delivery/Risk Agent** has a dedicated **Configure** button for setting thresholds and inputs.
+
+For most agents, per-agent configuration is not required. Behavior is shaped by [Skills](/agents/skills) and [Governance policies](/admin/governance).

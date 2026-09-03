@@ -1,0 +1,32 @@
+---
+title: "Connect Inbound Email to Corunner for Decision Capture"
+sidebarTitle: "Inbound Email"
+description: "Capture explicitly recorded decisions from forwarded email. A one-way inbound channel that stages decisions for human review before they enter memory."
+---
+
+Inbound Email is a Direct Connection that captures explicitly recorded decisions from forwarded email. It is a one-way inbound channel: emails you forward to a Corunner address are received, verified, and staged as decision-capture events for human review before they enter memory.
+
+<Note>
+  This is not a general email inbox integration. It does not read your Gmail or Outlook inbox. It only receives signed decision emails you forward to Corunner.
+</Note>
+
+## What Corunner does with Inbound Email
+
+Corunner listens for signed email events and stages them as **decision approvals**. A curator reviews each staged decision and either captures it into memory or rejects it. Use this when a decision was made over email and you want it recorded without retyping it in chat.
+
+## What you get
+
+- Receive signed email events
+- Stage decision approvals
+
+## Authentication
+
+Connect with an API key you generate in Corunner. Configure the forwarding rules in your email provider to send the target messages to the Corunner inbound address.
+
+## What breaks if you disconnect
+
+- Email decision capture
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Inbound Email** under the **Direct Connections** tab.
