@@ -18,7 +18,7 @@ Agents run log queries when investigating incidents, discover which labels are a
 
 ## Authentication
 
-Connect with an API key you generate in Grafana. Paste the key and the Loki URL into the connection card in Corunner.
+Authentication depends on the connection mode. Grafana Cloud uses a bearer token. A self-hosted Grafana instance supports a bearer token or basic authentication. A direct Loki connection supports no authentication, a bearer token, or basic authentication.
 
 ## What breaks if you disconnect
 
@@ -28,3 +28,35 @@ Connect with an API key you generate in Grafana. Paste the key and the Loki URL 
 ## Manage this connection
 
 Open **Integrations** in the Corunner web app, then find **Grafana Loki** under the **Direct Connections** tab.
+
+## Connect Grafana Loki
+
+Open the **Connect Grafana Loki** dialog and choose the mode that matches your deployment.
+
+### 1. Grafana Cloud
+
+Choose **Grafana Cloud**, then enter a connection name, environment, Grafana URL, Loki datasource UID, and bearer token. Add a tenant header only if your Grafana Cloud configuration requires one.
+
+<Frame caption="Configure a Grafana Cloud connection in Corunner.">
+  ![Connect Grafana Loki dialog with Grafana Cloud selected and fields for the Grafana URL, datasource UID, bearer token, and optional tenant header](/images/integrations/direct/grafanLoki/grafanLoki.png)
+</Frame>
+
+### 2. Self-hosted
+
+Choose **Self-hosted**, then enter a connection name, environment, Grafana URL, and Loki datasource UID. Select **Bearer token** or **Basic auth** and provide the matching credentials. Add a tenant header only when your deployment uses one.
+
+<Frame caption="Configure a self-hosted Grafana connection and select its authentication method.">
+  ![Connect Grafana Loki dialog with Self-hosted and Bearer token selected](/images/integrations/direct/grafanLoki/grafanLoki1.png)
+</Frame>
+
+### 3. Direct Loki
+
+Choose **Direct Loki** when Corunner should connect to the Loki endpoint without going through Grafana. Enter a connection name, environment, and Loki URL. Then select **No auth**, **Bearer token**, or **Basic auth** to match your Loki deployment.
+
+<Frame caption="Configure a direct connection to a Loki endpoint.">
+  ![Connect Grafana Loki dialog with Direct Loki selected, a Loki URL field, authentication options, and a tenant header field](/images/integrations/direct/grafanLoki/grafanLoki2.png)
+</Frame>
+
+The **Tenant header** is optional. Leave it empty unless your Loki deployment uses tenant-based isolation and requires a tenant identifier with each request.
+
+After completing the fields for your selected mode, click **Connect**. Corunner verifies the endpoint and credentials before saving the connection.

@@ -32,3 +32,44 @@ Corunner ships as an Atlassian Forge app. Install it from the Atlassian Marketpl
 ## Manage this connection
 
 Open **Integrations** in the Corunner web app, then find **Jira & Confluence** under the **Direct Connections** tab.
+
+## Install the Corunner Forge app
+
+Open the **Connect Jira & Confluence** dialog. Corunner generates a verification code for linking the Atlassian installation to your Corunner workspace.
+
+<Frame caption="Start the Jira and Confluence installation from Corunner.">
+  ![Connect Jira and Confluence dialog showing the install button, setup steps, and verification code](/images/integrations/direct/jira/jira.png)
+</Frame>
+
+The verification code is single-use and remains valid for 15 minutes. If it expires, generate a new code before continuing. Each request from the Forge app is verified using an Atlassian-signed invocation token. The code alone cannot link an installation.
+
+<Frame caption="Review the verification-code status and security information in Corunner.">
+  ![Connect Jira and Confluence dialog showing the verification code, refresh status button, expiration notice, and invocation-token information](/images/integrations/direct/jira/jira1.png)
+</Frame>
+
+## Sign in to Atlassian
+
+Click **Install the Corunner app in Jira & Confluence**. Corunner opens the Atlassian Marketplace flow. If you are not already signed in, Atlassian asks you to log in.
+
+<Frame caption="Log in to Atlassian to continue installing the Corunner app.">
+  ![Atlassian login page with email, passkey, and Google sign-in options](/images/integrations/direct/jira/jira2.png)
+</Frame>
+
+<Steps>
+  <Step title="Log in to Atlassian">
+    Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
+  </Step>
+  <Step title="Install the Corunner app">
+    Select the Atlassian site that contains the Jira and Confluence data you want Corunner to access. Review the requested permissions, then approve the installation.
+  </Step>
+  <Step title="Open the Corunner admin page">
+    In Jira or Confluence, go to **Apps → Corunner**, then open the admin page.
+  </Step>
+  <Step title="Verify the connection">
+    Paste the verification code from the Corunner dialog into the Corunner Forge app and connect it. Return to the dialog and click **Refresh status** to confirm the connection.
+  </Step>
+</Steps>
+
+<Tip>
+  If the code expires before you finish, return to Corunner and generate a new one. Do not reuse a code from an earlier installation attempt.
+</Tip>

@@ -30,3 +30,44 @@ Corunner ships as an Atlassian Forge app. Install it from the Atlassian Marketpl
 ## Manage this connection
 
 Open **Integrations** in the Corunner web app, then find **Bitbucket** under the **Direct Connections** tab.
+
+## Install the Corunner Forge app
+
+Open the **Connect Bitbucket** dialog. Corunner generates a verification code for linking the Bitbucket installation to your Corunner workspace.
+
+<Frame caption="Start the Bitbucket installation from Corunner.">
+  ![Connect Bitbucket dialog showing the install button, setup steps, and verification code](/images/integrations/direct/bitbucket/bitBucket.png)
+</Frame>
+
+The verification code is single-use and remains valid for 15 minutes. If it expires, generate a new code before continuing. Each request from the Forge app is verified using an Atlassian-signed invocation token. The code alone cannot link an installation.
+
+<Frame caption="Review the verification-code status and security information in Corunner.">
+  ![Connect Bitbucket dialog showing the verification code, refresh status button, expiration notice, and invocation-token information](/images/integrations/direct/bitbucket/bitBucket1.png)
+</Frame>
+
+## Sign in to Atlassian
+
+Click **Install the Corunner app in Bitbucket**. Corunner opens the Atlassian Marketplace flow. If you are not already signed in, Atlassian asks you to log in.
+
+<Frame caption="Log in to Atlassian to continue installing the Corunner app for Bitbucket.">
+  ![Atlassian login page with email, passkey, and Google sign-in options](/images/integrations/direct/jira/jira2.png)
+</Frame>
+
+<Steps>
+  <Step title="Log in to Atlassian">
+    Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
+  </Step>
+  <Step title="Install the Corunner app">
+    Select the Bitbucket Cloud workspace you want Corunner to access. Review the requested permissions, then approve the installation.
+  </Step>
+  <Step title="Open Corunner Setup">
+    In Bitbucket, go to **Workspace settings → Corunner Setup**.
+  </Step>
+  <Step title="Verify the connection">
+    Paste the verification code from the Corunner dialog into **Corunner Setup** and connect it. Return to the dialog and click **Refresh status** to confirm the connection.
+  </Step>
+</Steps>
+
+<Tip>
+  If the code expires before you finish, return to Corunner and generate a new one. Do not reuse a code from an earlier installation attempt.
+</Tip>
