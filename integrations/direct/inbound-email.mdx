@@ -30,3 +30,31 @@ Connect with an API key you generate in Corunner. Configure the forwarding rules
 ## Manage this connection
 
 Open **Integrations** in the Corunner web app, then find **Inbound Email** under the **Direct Connections** tab.
+
+## Connect Inbound Email
+
+Open the **Connect Inbound Email** dialog and enter the credentials for the inbound email channel.
+
+<Frame caption="Configure the inbound email channel in Corunner.">
+  ![Connect Inbound Email dialog showing the inbound alias, API key or secret, optional display name, provider code, and Connect button](/images/integrations/direct/inboundEmail/inbundEmail.png)
+</Frame>
+
+The credential is encrypted at rest and used only for the scopes shown. Corunner verifies it the moment you connect. If the credential is invalid, an error appears in the dialog.
+
+<Steps>
+  <Step title="Enter the inbound alias">
+    Enter the alias assigned to your inbound email channel. Corunner uses it to identify email events sent through this connection.
+  </Step>
+  <Step title="Enter the API key or secret">
+    Paste the credential used to verify incoming email events.
+  </Step>
+  <Step title="Add a display name (optional)">
+    Enter a recognizable name, such as `Inbound Email – Production`, to distinguish this connection from other environments.
+  </Step>
+  <Step title="Confirm the provider code">
+    Use the provider code configured for the connection, such as `email_inbound`.
+  </Step>
+  <Step title="Click Connect">
+    Corunner verifies the credential immediately and saves the inbound email connection when validation succeeds.
+  </Step>
+</Steps>

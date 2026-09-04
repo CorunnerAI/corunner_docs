@@ -29,3 +29,30 @@ Connect with a **personal access token** from GitLab. Create the token with the 
 ## Manage this connection
 
 Open **Integrations** in the Corunner web app, then find **GitLab** under the **Direct Connections** tab.
+
+## Connect GitLab
+
+Enter the GitLab connection details in the **Connect GitLab** dialog. The required `api` scope lets Corunner read repositories, merge requests, pipelines, and commits.
+
+<Frame caption="Enter your GitLab namespace and personal access token in Corunner.">
+  ![Connect GitLab dialog showing the required API scope, namespace ID, self-managed URL, personal access token, and display name fields](/images/integrations/direct/gitlab/gitlab.png)
+</Frame>
+
+The credential is encrypted at rest and used only for the scopes shown. Corunner verifies it when you connect. If the credential is invalid, an error appears in the dialog.
+
+[**Create a personal access token in GitLab**](https://gitlab.com/-/profile/personal_access_tokens)
+
+<Steps>
+  <Step title="Enter the namespace ID">
+    Enter the numeric ID of the GitLab namespace you want Corunner to access.
+  </Step>
+  <Step title="Enter a self-managed URL if needed">
+    If you use a self-managed GitLab instance, enter its base URL. Leave this field empty when you use GitLab.com.
+  </Step>
+  <Step title="Enter the personal access token">
+    Paste a GitLab personal access token with the required `api` scope.
+  </Step>
+  <Step title="Complete the connection">
+    Optionally add a display name and provider code, then click **Connect**. Corunner verifies the credential immediately.
+  </Step>
+</Steps>
