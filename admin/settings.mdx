@@ -24,7 +24,18 @@ The channels Corunner operates in. Adding a channel lets Corunner respond to `@C
 
 ### User Groups
 
-Group team members so agents can address a group instead of an individual (for example, "@Corunner tell #on-call there's an incident"). Groups also feed governance and standup targeting.
+Restrict access to **private tools** and **private channels** by grouping the specific people who should see them. Anything shared with a group is visible only to that group's members; the rest of the workspace does not see it.
+
+Only admins can create, rename, or delete groups and manage their membership and grants. Members can view groups and see who belongs to them, but cannot make changes.
+
+Each group has two sections:
+
+- **Members** — search the org directory by name or email and add teammates to the group. Removing a member cuts their access to every private tool and channel granted through this group.
+- **Tool & channel access** — grant this group access to **Private tools** (made private in **Integrations**) and **Private channels** (made private in **Settings → Channels**). Only resources marked private appear in the picker, since public ones are already available to everyone.
+
+<Note>
+  Making a tool or channel private is a separate step done on the tool card in **Integrations** or on the channel row in **Settings → Channels**. User Groups is where you then decide which groups can use it.
+</Note>
 
 ### Account
 
