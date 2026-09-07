@@ -1,0 +1,106 @@
+---
+title: "Configure Observation Consent for Connected Tools"
+sidebarTitle: "Observation Consent"
+description: "Grant Corunner scoped, per-resource consent to passively observe channels, repos, and pages. Control mode, sensitivity, and how long raw content is kept."
+---
+
+**Observation consent** is a separate step from connecting a tool. Connecting a tool grants API access. Observation consent grants **passive intelligence**: it tells Corunner which specific resources inside that tool (a Slack channel, a GitHub repo, a Confluence page) are eligible to be observed, in what mode, and at what sensitivity.
+
+Every connected tool card has a **brain icon** in its action row that opens the **Observation consent** drawer. The drawer is the same across Direct Connections and MCP servers.
+
+<Frame caption="Observation consent drawer opened from a connected GitHub tool card.">
+  ![Observation consent drawer for GitHub showing a warning callout, an empty Scopes list, and the Add resource form with Resource type and Mode selects and a Provider resource id field](/images/integrations/observation/git-obs.png)
+</Frame>
+
+<Warning>
+  Observation is separate from connecting a tool. Only resources listed here are eligible for passive intelligence, and excluded scopes cannot be enabled.
+</Warning>
+
+## Open the drawer
+
+<Steps>
+  <Step title="Open Integrations">
+    In the Corunner web app, open **Integrations** and find the connected tool.
+  </Step>
+  <Step title="Click the brain icon on the card">
+    In the action row on the connected card, click the **brain** icon (tooltip: **Observation consent**). Only admins see the action row.
+  </Step>
+  <Step title="Review existing scopes">
+    The **Scopes** list shows every resource that already has passive observation configured for this tool. A new connection shows _No passive observation scopes configured yet._
+  </Step>
+</Steps>
+
+## Add a resource
+
+The **Add resource** form registers one specific resource inside the connected tool as an observation scope.
+
+<Frame caption="Add resource form with fields for Provider resource id, Display label, Container id, Raw TTL minutes, and Sensitivity.">
+  ![Add resource form in the Observation consent drawer with fields for Provider resource id, Display label, Container id, Raw TTL minutes, and Sensitivity, plus a Recent source observations section](/images/integrations/observation/git-obs-1.png)
+</Frame>
+
+<Steps>
+  <Step title="Choose the Resource type">
+    Pick what kind of resource this scope refers to: **Channel**, **Thread**, **Work item**, **Change request**, **Repository**, **Document**, **Meeting**, **Mailbox**, **Artifact**, or **MCP resource**.
+  </Step>
+  <Step title="Pick the Mode">
+    Start in **Disabled** while you configure the scope, then switch to **Shadow** to observe without acting, or **Active** to let agents use the observations. **Excluded** sensitivity forces the mode to Disabled and cannot be enabled.
+  </Step>
+  <Step title="Enter the Provider resource id">
+    Paste the identifier the source system uses for the resource (Slack channel id such as `C123456`, a GitHub repo id, a Jira project id, a Confluence page id). This is the field the drawer uses to match incoming events to the scope.
+  </Step>
+  <Step title="Add a Display label (optional)">
+    Give the scope a recognizable name, such as **Engineering decisions**, so it is easier to identify in the Scopes list than by raw id.
+  </Step>
+  <Step title="Add a Container id (optional)">
+    Enter a parent identifier when the source system nests resources, for example a workspace id that contains many channels.
+  </Step>
+  <Step title="Set the Raw TTL minutes">
+    Enter how long, in minutes, Corunner keeps the raw observed content before it is removed. Must be between **1** and **1440** minutes. The default is **60**.
+  </Step>
+  <Step title="Choose the Sensitivity">
+    Select **Standard**, **Restricted**, or **Excluded**. **Excluded** blocks observation entirely and forces Mode to Disabled.
+  </Step>
+  <Step title="Click Add scope">
+    Corunner creates the scope. It appears in the **Scopes** list at the top of the drawer where you can adjust its mode or sensitivity later.
+  </Step>
+</Steps>
+
+## Modes and sensitivity
+
+| Mode | Behavior |
+| --- | --- |
+| **Disabled** | The scope is registered but no observations are recorded. |
+| **Shadow** | Corunner observes and stores events for review, but agents do not act on them. |
+| **Active** | Agents may use the observed events in their reasoning. |
+
+| Sensitivity | Effect |
+| --- | --- |
+| **Standard** | Default handling. |
+| **Restricted** | Extra handling constraints applied to stored observations. |
+| **Excluded** | Observation is blocked. The scope is kept for auditing but Mode is forced to Disabled. |
+
+<Note>
+  Changing a scope's sensitivity to **Excluded** automatically switches its Mode to **Disabled**. You cannot re-enable the mode until you also change the sensitivity back.
+</Note>
+
+## Recent source observations
+
+The **Recent source observations** panel lists the events Corunner has already ingested against this connection's scopes. Each entry shows the external item id, resource type, event type, occurrence time, and processing status.
+
+For each source observation you can:
+
+- **Reprocess** — re-run ingestion for the item and reset its retry count. Requires a reason.
+- **Purge** — remove the raw stored content for the item. Requires a reason and is destructive.
+
+Both actions ask for a required reason before confirming, which is recorded for auditing.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Direct Connections" icon="plug" href="/integrations/overview">
+    Browse all Direct Connections that support Observation consent.
+  </Card>
+  <Card title="Governance" icon="shield" href="/admin/governance">
+    Review workspace-level policies that apply to observed content.
+  </Card>
+</CardGroup>

@@ -69,3 +69,19 @@ On the **Install CorunnerAI** screen:
 <Tip>
   For read-only access to code via the Model Context Protocol, see the [GitHub Copilot MCP](/integrations/mcp/github-copilot) connection.
 </Tip>
+
+## Grant observation consent
+
+Connecting GitHub gives Corunner API access. Passive **observation** of specific repos, PRs, or issues is a separate consent step: click the **brain** icon on the GitHub card in **Integrations** to open the **Observation consent** drawer.
+
+<Frame caption="Observation consent drawer opened from the connected GitHub card.">
+  ![Observation consent drawer for GitHub showing a warning callout, an empty Scopes list, and the Add resource form with Resource type and Mode selects and a Provider resource id field](/images/integrations/observation/git-obs.png)
+</Frame>
+
+Register one scope per resource you want observed. Enter the GitHub **repo id** (or another provider resource id) in **Provider resource id**, give it a **Display label** such as `Platform repo`, set a **Raw TTL** between 1 and 1440 minutes, and pick a **Sensitivity**. Start with Mode set to **Disabled** or **Shadow**, then switch to **Active** once you are ready.
+
+<Frame caption="Add resource form fields inside the Observation consent drawer.">
+  ![Add resource form in the Observation consent drawer with fields for Provider resource id, Display label, Container id, Raw TTL minutes, and Sensitivity, plus a Recent source observations section](/images/integrations/observation/git-obs-1.png)
+</Frame>
+
+The same drawer is available on every connected tool card. For the full walkthrough of modes, sensitivity levels, and Recent source observations, see [Observation consent](/integrations/observation-consent).

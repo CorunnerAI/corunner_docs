@@ -112,7 +112,8 @@
               "integrations/mcp/github-copilot",
               "integrations/mcp/custom"
             ]
-          }
+          },
+          "integrations/observation-consent"
         ]
       },
       {
