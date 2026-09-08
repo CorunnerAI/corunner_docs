@@ -60,13 +60,31 @@ Click **Install the Corunner app in Jira & Confluence**. Corunner opens the Atla
     Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
   </Step>
   <Step title="Install the Corunner app">
-    Select the Atlassian site that contains the Jira and Confluence data you want Corunner to access. Review the requested permissions, then approve the installation.
+    Select the Atlassian site that contains the Jira and Confluence data you want Corunner to access. The list only includes sites where you are an admin.
+
+    If Atlassian shows **You aren’t currently an admin of any sites**, sign in with an account that has admin access or ask your Atlassian site admin to install the app.
+
+    Review the app permissions and vendor details, then click **Install**. Confirm that **Installation successful** appears for both Jira and Confluence.
+
+    <Frame caption="Confirm successful installation for Jira and Confluence on your selected site.">
+      ![Atlassian installation dialog showing the selected site and successful installation for Jira and Confluence](/images/integrations/direct/jira/jira3.png)
+    </Frame>
   </Step>
   <Step title="Open the Corunner admin page">
-    In Jira or Confluence, go to **Apps → Corunner**, then open the admin page.
+    In Jira, click the three-dot menu next to **Apps**, then select **Manage apps** to find the installed Corunner app. Open the Corunner admin page to link your workspace.
+
+    <Frame caption="Open Manage apps from the Apps menu in Jira.">
+      ![Jira sidebar with the Apps menu open and the Manage apps option visible](/images/integrations/direct/jira/Jira4.png)
+    </Frame>
   </Step>
   <Step title="Verify the connection">
-    Paste the verification code from the Corunner dialog into the Corunner Forge app and connect it. Return to the dialog and click **Refresh status** to confirm the connection.
+    Paste the verification code from the **Connect Jira & Confluence** dialog into the **Verification code** field on the Corunner admin page. Click **Connect** to link this Atlassian site to your Corunner workspace.
+
+    <Frame caption="Enter your verification code and connect the Atlassian site to your Corunner workspace.">
+      ![Corunner admin page showing the Verification code field, Connect button, and 15-minute code expiration notice](/images/integrations/direct/jira/jira5.png)
+    </Frame>
+
+    Return to the Corunner dialog and click **Refresh status** to confirm the connection.
   </Step>
 </Steps>
 

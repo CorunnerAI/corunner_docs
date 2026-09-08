@@ -19,7 +19,7 @@ Agents watch pull requests, comment where appropriate, and track deployments so 
 
 ## Authentication
 
-Corunner ships as an Atlassian Forge app. Install it from the Atlassian Marketplace, then paste the verification code shown in the connection card into Corunner to link it.
+Corunner ships as an Atlassian Forge app. Install it from the Atlassian Marketplace, then paste the verification code from Corunner into **Corunner Setup** in Bitbucket to link it.
 
 ## What breaks if you disconnect
 
@@ -58,13 +58,48 @@ Click **Install the Corunner app in Bitbucket**. Corunner opens the Atlassian Ma
     Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
   </Step>
   <Step title="Install the Corunner app">
-    Select the Bitbucket Cloud workspace you want Corunner to access. Review the requested permissions, then approve the installation.
+    Select the Bitbucket Cloud workspace you want Corunner to access. The selection list only includes sites where you are an admin. Review the app permissions and vendor details, then approve the installation. Confirm that **Installation successful** appears for Bitbucket.
+
+    <Frame caption="Confirm the Corunner app is installed in your selected Bitbucket workspace.">
+      ![Corunner Bitbucket installation dialog showing the selected workspace and Installation successful status](/images/integrations/direct/bitbucket/bitbucket2.png)
+    </Frame>
+  </Step>
+  <Step title="Accept the requested access">
+    Review the permissions on the Atlassian access page. Scroll to the bottom and click **Accept**. You are then redirected to Bitbucket.
+
+    <Frame caption="Review the requested permissions, then scroll down to Accept.">
+      <img src="/images/integrations/direct/bitbucket/bitBucket3.png" alt="Atlassian page showing Corunner - Bitbucket requesting access to your account and Bitbucket data" />
+    </Frame>
+  </Step>
+  <Step title="Open workspace settings">
+    In Bitbucket, click the **Settings** gear icon in the top-right corner. Select **Workspace settings** under **Bitbucket Administration**.
+
+    <Frame caption="Open Workspace settings from the Bitbucket Settings menu.">
+      ![Bitbucket Settings menu with Workspace settings under Bitbucket Administration](/images/integrations/direct/bitbucket/bitBucket4.png)
+    </Frame>
   </Step>
   <Step title="Open Corunner Setup">
-    In Bitbucket, go to **Workspace settings → Corunner Setup**.
+    In the workspace settings sidebar, expand **Forge Apps**. Under **Corunner - Bitbucket**, click **Corunner Setup**.
+
+    <Frame caption="Select Corunner Setup under Forge Apps.">
+      ![Workspace settings sidebar showing Corunner Setup under Forge Apps and Corunner - Bitbucket](/images/integrations/direct/bitbucket/bitBucket5.png)
+    </Frame>
+  </Step>
+  <Step title="Allow access">
+    If Corunner Setup asks for permission to access Atlassian products on your behalf, click **Allow access** to continue to the verification-code form.
+
+    <Frame caption="Allow access so Corunner Setup can display the connection form.">
+      ![Corunner Setup permission notice with the Allow access button](/images/integrations/direct/bitbucket/bitBucket6.png)
+    </Frame>
   </Step>
   <Step title="Verify the connection">
-    Paste the verification code from the Corunner dialog into **Corunner Setup** and connect it. Return to the dialog and click **Refresh status** to confirm the connection.
+    Copy the verification code from the **Connect Bitbucket** dialog in Corunner, shown in the first screenshot on this page. Paste it into the **Verification code** field in **Corunner Setup**, then click **Connect** to link your Bitbucket workspace to your Corunner workspace.
+
+    <Frame caption="Paste the verification code from Corunner and click Connect.">
+      ![Corunner Setup connection form with the Verification code field and Connect button](/images/integrations/direct/bitbucket/bitBucket7.png)
+    </Frame>
+
+    Return to the Corunner dialog and click **Refresh status** to confirm the connection.
   </Step>
 </Steps>
 
