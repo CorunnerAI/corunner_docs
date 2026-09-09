@@ -7,7 +7,7 @@
     "light": "#ff722b",
     "dark": "#e54b00"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/corunner-favicon.png",
   "navigation": {
     "pages": [
       {
@@ -143,7 +143,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/corunnerai",
-      "linkedin": "https://www.linkedin.com/company/corunner",
+      "linkedin": "https://www.linkedin.com/company/corunnerai/",
       "instagram": "https://www.instagram.com/corunner.ai"
     }
   },
