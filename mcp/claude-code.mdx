@@ -1,0 +1,40 @@
+---
+title: "Connect Claude Code to Corunner MCP"
+sidebarTitle: "Claude Code"
+description: "Configure Corunner Engineering Memory MCP in Claude Code."
+---
+
+Add Corunner as a hosted HTTP MCP server from the repository where you want to use it.
+
+## Add Corunner for the current project
+
+Run:
+
+```bash
+claude mcp add --transport http corunner https://api.corunner.ai/mcp
+claude mcp list
+```
+
+This makes the server available in the current project context.
+
+## Add Corunner for every project
+
+Use user scope:
+
+```bash
+claude mcp add --transport http --scope user corunner https://api.corunner.ai/mcp
+```
+
+## Complete OAuth
+
+Inside Claude Code, run `/mcp`, select **corunner**, and complete the browser sign-in and consent flow. Choose the Corunner workspace and approve only the scopes you need.
+
+## Verify the connection
+
+Run `claude mcp list` and confirm that `corunner` is available. Ask Claude Code to retrieve context for a file in the current repository. Include the canonical Git remote when prompted or in your task.
+
+<Warning>
+  Keep the OAuth grant user-specific. Do not place bearer tokens in project files, shell scripts, or committed configuration.
+</Warning>
+
+For current command options and OAuth behavior, see the [Claude Code MCP guide](https://code.claude.com/docs/en/mcp).

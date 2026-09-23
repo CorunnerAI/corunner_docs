@@ -96,6 +96,7 @@
               "integrations/mcp/notion",
               "integrations/mcp/confluence",
               "integrations/mcp/datadog",
+              "integrations/mcp/cloudwatch",
               "integrations/mcp/posthog",
               "integrations/mcp/google-drive",
               "integrations/mcp/sharepoint",
@@ -114,6 +115,15 @@
             ]
           },
           "integrations/observation-consent"
+        ]
+      },
+      {
+        "group": "Corunner MCP",
+        "pages": [
+          "mcp/overview",
+          "mcp/codex",
+          "mcp/claude-code",
+          "mcp/cursor"
         ]
       },
       {
