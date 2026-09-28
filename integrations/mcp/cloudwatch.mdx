@@ -1,0 +1,124 @@
+---
+title: "Connect AWS CloudWatch as an MCP Server"
+sidebarTitle: "AWS CloudWatch"
+description: "Connect AWS CloudWatch to Corunner for read-only metrics, alarms, PromQL, and CloudWatch Logs Insights queries."
+---
+
+The AWS CloudWatch MCP Server lets Corunner query your AWS metrics, alarms, PromQL data, and CloudWatch Logs Insights. Corunner uses a cross-account IAM role and does not require your AWS access keys.
+
+## What you get
+
+- Read CloudWatch metrics
+- Read alarm details and alarm history
+- List metrics
+- Query CloudWatch Logs Insights
+- Read log anomaly information
+
+The connection is read-only. Corunner cannot create, update, or delete CloudWatch resources.
+
+## Before you start
+
+You need permission to create an IAM role in the AWS account that contains the CloudWatch data. You also need the AWS region where Corunner should query CloudWatch.
+
+## Create the AWS IAM role
+
+Create a new IAM role for Corunner in AWS. When AWS asks for a trust policy, paste the following policy. Replace `<CORUNNER_AWS_ACCOUNT_ID>` with the AWS account ID provided by Corunner. Keep the external ID exactly as shown in the CloudWatch connection dialog.
+
+### IAM trust policy (AssumeRole)
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<CORUNNER_AWS_ACCOUNT_ID>:role/corunner-prod-integration-service-task"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "cr-ws-cef895d8-332c-4cd4-8df7-80376c78f3ce-lfk8k64h"
+        }
+      }
+    }
+  ]
+}
+```
+
+Attach the following inline policy, or an equivalent customer-managed policy, to the role. It grants only the read permissions required by the connection.
+
+### Read-only IAM permission policy
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:DescribeAlarmHistory",
+        "cloudwatch:GetMetricData",
+        "cloudwatch:ListMetrics",
+        "logs:DescribeLogGroups",
+        "logs:DescribeQueryDefinitions",
+        "logs:ListLogAnomalyDetectors",
+        "logs:ListAnomalies",
+        "logs:StartQuery",
+        "logs:GetQueryResults",
+        "logs:StopQuery"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+After you create the role, copy its ARN. It looks like this:
+
+```text
+arn:aws:iam::<AWS_ACCOUNT_ID>:role/<ROLE_NAME>
+```
+
+You will paste this IAM Role ARN into Corunner. Do not paste an AWS access key or secret key.
+
+## Connect CloudWatch
+
+<Steps>
+  <Step title="Open the CloudWatch connection">
+    In the Corunner web app, open **Integrations**, select **MCP Servers**, and choose **AWS CloudWatch**.
+  </Step>
+  <Step title="Enter the connection details">
+    Enter a connection name, choose the AWS region, and paste the **IAM Role ARN** for the role you created. Corunner displays the external ID and the policies required for the connection.
+  </Step>
+  <Step title="Configure AWS and connect">
+    Confirm that the trust policy uses the displayed external ID and that the read-only permission policy is attached to the role. Return to Corunner and click **Connect**. Corunner tests the role before saving the connection.
+  </Step>
+</Steps>
+
+<Frame caption="Enter the connection name, AWS region, and IAM Role ARN.">
+  ![AWS CloudWatch connection form showing the connection name, AWS region, IAM Role ARN, and external ID fields](/images/integrations/direct/cloudWatch/cloudWatch.webp)
+</Frame>
+
+<br />
+
+<Frame caption="Copy the external ID and IAM trust policy into AWS IAM.">
+  ![AWS CloudWatch connection form showing the external ID and IAM Trust Policy](/images/integrations/direct/cloudWatch/cloudWatch-1.webp)
+</Frame>
+
+<br />
+
+<Frame caption="Copy the read-only IAM permission policy, then test the connection.">
+  ![AWS CloudWatch connection form showing the read-only IAM Permission Policy and Test Connection button](/images/integrations/direct/cloudWatch/cloudWatch-3.webp)
+</Frame>
+
+## Troubleshooting
+
+- **Access denied:** Verify that the IAM Role ARN is correct and that the role trust policy names the Corunner task role.
+- **Invalid external ID:** Copy the external ID from the current CloudWatch connection dialog. It must match the value in the trust policy exactly.
+- **No data returned:** Confirm that the selected AWS region contains the metrics or log groups you want to query.
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **AWS CloudWatch** under the **MCP Servers** tab.

@@ -1,0 +1,49 @@
+---
+title: "Connect Codex to Corunner MCP"
+sidebarTitle: "Codex"
+description: "Configure Corunner Engineering Memory MCP in Codex CLI and the Codex IDE extension."
+---
+
+Codex shares MCP configuration between the CLI and the IDE extension. Add Corunner once, then complete the browser-based OAuth flow when Codex connects.
+
+## Add Corunner
+
+Run:
+
+```bash
+codex mcp add corunner --url https://api.corunner.ai/mcp
+codex mcp list
+```
+
+Codex prompts you to authenticate when it first connects. Sign in, choose the Corunner workspace, and approve the scopes your work requires.
+
+## Configure manually
+
+You can configure the server in `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.corunner]
+url = "https://api.corunner.ai/mcp"
+auth = "oauth"
+oauth_resource = "https://api.corunner.ai/mcp"
+scopes = [
+  "engineering:context:read",
+  "engineering:decisions:read",
+  "engineering:requirements:read",
+  "engineering:history:read",
+  "engineering:incidents:read",
+  "engineering:change:validate",
+]
+```
+
+Request only the scopes needed for your workflow. For example, use `engineering:context:read` and `engineering:change:validate` for context retrieval and final change checks.
+
+## Verify the connection
+
+Run `codex mcp list` and confirm that `corunner` is listed. Then ask Codex to retrieve context for a repository file. Include the repository's canonical Git remote so Corunner can resolve the correct workspace repository.
+
+<Warning>
+  Do not commit `~/.codex/config.toml` or copy access tokens into a project configuration file.
+</Warning>
+
+For the latest Codex command syntax, see the [OpenAI MCP setup guide](https://developers.openai.com/learn/docs-mcp).

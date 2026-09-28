@@ -1,0 +1,37 @@
+---
+title: "Connect Cursor to Corunner MCP"
+sidebarTitle: "Cursor"
+description: "Configure Corunner Engineering Memory MCP in Cursor."
+---
+
+Add Corunner to Cursor's user MCP configuration so it is available to your coding agents.
+
+## Configure Cursor
+
+Add this entry to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "corunner": {
+      "url": "https://api.corunner.ai/mcp"
+    }
+  }
+}
+```
+
+If the file already contains other servers, add `corunner` inside the existing `mcpServers` object rather than replacing the file.
+
+## Complete OAuth
+
+Restart Cursor, enable Corunner in the agent's MCP tools, and complete the browser sign-in and consent flow. Choose the Corunner workspace and approve only the scopes you need.
+
+## Verify the connection
+
+Ask the Cursor agent to retrieve Corunner context for a repository file. Include the canonical Git remote so Corunner can resolve the correct repository.
+
+<Warning>
+  Do not put bearer tokens or authorization headers in `mcp.json`, project settings, or source control. Keep the access grant user-specific.
+</Warning>
+
+If the server does not appear, restart Cursor and check that the JSON is valid and that the server is enabled in the agent tools picker.

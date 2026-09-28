@@ -1,0 +1,78 @@
+---
+title: "Corunner Engineering Memory MCP"
+sidebarTitle: "Overview"
+description: "Connect AI coding agents to Corunner's permission-aware engineering memory."
+---
+
+Corunner Engineering Memory MCP gives compatible AI coding agents the organizational context they cannot get from a repository alone. Use it to retrieve architecture decisions, requirements, repository history, related blockers, and change-validation findings while you work.
+
+<Note>
+  This is different from the MCP Servers under Integrations. Those connections let Corunner use third-party MCP servers. Corunner Engineering Memory MCP lets Codex, Claude Code, Cursor, and other agents query Corunner.
+</Note>
+
+## Server endpoint
+
+Use the hosted endpoint below unless your organization provides a different Corunner deployment:
+
+```text
+https://api.corunner.ai/mcp
+```
+
+## What the server provides
+
+All current tools are read-only. `corunner.check_change` analyzes a proposed change but does not modify your repository.
+
+| Tool | Use it to |
+| --- | --- |
+| `corunner.get_context` | Retrieve relevant decisions, requirements, history, incidents, and code targets before substantial work. |
+| `corunner.get_decisions` | Check active, historical, superseded, or rejected architecture decisions. |
+| `corunner.get_requirements` | Recover requirements and acceptance criteria from connected work items. |
+| `corunner.explain_code_history` | Understand related change requests and check runs behind unfamiliar code. |
+| `corunner.get_related_incidents` | Find unresolved blockers and relevant failed checks. |
+| `corunner.check_change` | Validate a proposed diff against supported organizational evidence before finalizing. |
+
+## Recommended workflow
+
+1. Start substantial work with `corunner.get_context`. Include the canonical repository remote, task, and likely files.
+2. Use `corunner.get_decisions` when architecture choices or historical alternatives matter.
+3. Use `corunner.get_requirements` when the task includes a work-item ID.
+4. Use `corunner.explain_code_history` or `corunner.get_related_incidents` for unfamiliar or failure-prone code.
+5. Before finalizing, call `corunner.check_change` with the actual diff or a concrete change summary.
+6. Treat `partial`, `authorization_limited`, `repository_unresolved`, and `insufficient_context` as limitations, not successful validation.
+
+## Authentication and access
+
+Corunner uses OAuth 2.1 authorization code flow with PKCE. When an agent connects, sign in, choose the Corunner workspace, and approve only the scopes the agent needs.
+
+Access is limited by the intersection of your OAuth scopes, workspace membership, role and resource policy, connected-provider access, repository access, and source visibility. The MCP server does not grant access you do not already have in Corunner.
+
+Never put bearer tokens in a repository file. Keep authorization grants user-specific and let the agent manage the OAuth flow.
+
+## Understand results
+
+- `ok`: relevant evidence was returned without a known source failure.
+- `partial`: useful evidence was returned, but one or more sources were unavailable or filtered.
+- `no_evidence`: no relevant supported evidence was found; this does not prove that no decision exists.
+- `repository_unresolved`: Corunner could not safely map the repository. Send its canonical remote.
+- `authorization_limited`: permissions excluded potential evidence.
+- `insufficient_context`: provide more files, symbols, a diff, or a concrete change summary.
+
+`no_known_conflict` means the supplied facts did not trigger a supported conflict. It is not a correctness, security, or policy certification.
+
+## Connect an agent
+
+<CardGroup cols={3}>
+  <Card title="Codex" icon="terminal" href="/mcp/codex">
+    Connect Codex CLI and the Codex IDE extension.
+  </Card>
+  <Card title="Claude Code" icon="robot" href="/mcp/claude-code">
+    Add Corunner to Claude Code with HTTP transport.
+  </Card>
+  <Card title="Cursor" icon="laptop-code" href="/mcp/cursor">
+    Configure Corunner in Cursor's MCP settings.
+  </Card>
+</CardGroup>
+
+## Related
+
+See [MCP Servers](/integrations/mcp/custom) to connect a third-party MCP server to Corunner.
