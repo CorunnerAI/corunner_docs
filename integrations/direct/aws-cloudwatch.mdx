@@ -1,0 +1,150 @@
+---
+title: "Connect AWS CloudWatch to Corunner"
+sidebarTitle: "AWS CloudWatch"
+description: "Connect AWS CloudWatch to Corunner with a read-only IAM role for incident investigation and root cause analysis."
+---
+
+AWS CloudWatch is a Direct Connection that gives Corunner read-only evidence for incident investigation and root cause analysis. Corunner can inspect approved CloudWatch Logs, metrics, alarms, and multiple AWS regions alongside evidence from other connected systems.
+
+Corunner does not deploy an agent into your workloads. It uses AWS Security Token Service (STS) to assume one read-only IAM role created in your AWS account.
+
+<Info>
+  The CloudWatch connection is for investigation only. It does not modify AWS resources, restart services, change alarms, edit log groups, or deploy application code.
+</Info>
+
+<Frame caption="AWS CloudWatch connection setup in Corunner.">
+  ![AWS CloudWatch connection setup screen in Corunner](/images/integrations/direct/cloudWatch/cloudWatch.webp)
+</Frame>
+
+## Setup at a glance
+
+1. **AWS setup:** Enter the account, regions, and log-group access in Corunner, then approve the prefilled CloudFormation stack in AWS.
+2. **Connect and discover:** Connect the verified role and discover CloudWatch resource metadata.
+3. **Investigation scopes:** Select and save at least one log group that Corunner may investigate.
+
+Most AWS configuration is prepared automatically. You do not need to manually create an IAM role, trust policy, External ID, or permissions policy.
+
+## Before you begin
+
+You need:
+
+- Permission to manage integrations for the Corunner workspace.
+- The 12-digit AWS account ID containing the CloudWatch data.
+- The AWS regions containing the log groups and services Corunner should investigate.
+- Access to the AWS Management Console.
+- Permission to create or update a CloudFormation stack that creates a named IAM role and inline IAM policy.
+
+Corunner supports one AWS account per workspace connection, multiple commercial AWS regions, and up to 20 enabled regions. AWS GovCloud and AWS China regions are not supported at launch.
+
+## Choose the access boundary
+
+During setup, configure both of these boundaries:
+
+### Enabled regions
+
+Select every commercial AWS region that contains services Corunner may need to investigate. Mark one region as **Primary**. The primary region is the connection default and is used when the CloudFormation stack is first created; it does not prevent investigations in other enabled regions.
+
+### Log-group access
+
+Choose one of these options:
+
+- **All log groups in enabled regions** lets Corunner discover and investigate any current or future log group in those regions.
+- **Specific groups or prefixes** restricts the IAM role to named log groups or bounded prefixes, such as `/ecs/production/` or `/aws/lambda/production-`.
+
+These controls work in two layers. Log-group access is the maximum set the AWS role may query. Investigation scopes are the subset Corunner scans during an incident.
+
+## Connect CloudWatch
+
+### 1. Prepare the AWS setup in Corunner
+
+1. Sign in to the Corunner web app and select the workspace that should use the AWS account.
+2. Open **Integrations**, select **AWS CloudWatch**, and click **Connect**.
+3. Enter a clear **Connection name** and the 12-digit **AWS account ID**.
+4. Under **Enabled commercial regions**, add the required regions and mark one as **Primary**.
+5. Under **Log-group access**, choose all log groups or add at least one exact group or prefix for each required region.
+6. Click **Launch AWS setup**.
+
+Corunner generates a workspace-bound External ID, deterministic IAM role name, scoped permissions policy, and signed setup request. A new AWS console tab opens with these values prefilled. If the tab does not open, allow pop-ups and click **Open AWS setup**.
+
+### 2. Approve the CloudFormation stack in AWS
+
+1. Sign in to AWS and confirm that the account matches the account ID entered in Corunner.
+2. Confirm that the AWS console is in the primary region selected by Corunner.
+3. Review the prefilled CloudFormation template, stack name, Corunner principal ARN, External ID, role name, and regional log-group permissions.
+4. Do not change the prefilled parameters. Changing them causes verification to fail.
+5. Acknowledge the named IAM resource requirement and click **Create stack**. For an existing connection, AWS may show **Update stack**.
+6. Wait for `CREATE_COMPLETE` or `UPDATE_COMPLETE`.
+
+Keep the Corunner drawer open while AWS creates the stack. If automatic verification times out, wait for the successful stack status and click **Check setup now**.
+
+The stack creates one role under `/corunner-observability/`. Its trust policy requires Corunner's configured integration principal and the exact Corunner-issued External ID. Its read-only policy is bounded by the regions and log-group access you selected.
+
+### 3. Connect and discover resources
+
+After Corunner displays **AWS setup verified**:
+
+1. Review the role ARN and enabled regions.
+2. Click **Connect and discover**.
+
+Corunner assumes the exact role, checks capabilities in the enabled regions, and performs metadata-only discovery of log groups, metric namespaces, and alarms. Metadata discovery does not query or scan log contents.
+
+### 4. Choose investigation scopes
+
+1. Use **Filter log groups** to find a group by name.
+2. Keep **Select all discovered log groups** enabled, or select only the groups Corunner should investigate.
+3. Review each group's region and click **Save N scopes**.
+
+At least one scope is required before CloudWatch investigations become available.
+
+## Use the connection
+
+Ask Corunner to investigate an incident and include the affected service, time range, symptom, and region when known.
+
+```text
+Investigate the increase in HTTP 500 responses from the production API during the last 30 minutes.
+```
+
+```text
+Why did the checkout alarm fire around 10:20 UTC? Check us-east-1 and us-west-2.
+```
+
+If no time is provided, Corunner begins with the previous 30 minutes. Standard investigations can cover up to six hours. An explicitly approved deep investigation can cover up to seven days.
+
+## What Corunner reads
+
+- CloudWatch metrics and metric data
+- Active alarms and alarm history
+- CloudWatch Logs metadata
+- Scoped CloudWatch Logs Insights queries and results
+
+`logs:StopQuery` only lets Corunner stop its own investigation queries when work is cancelled, times out, or reaches its scan limit. It does not alter stored logs.
+
+## Cost and query controls
+
+AWS may charge for CloudWatch Logs Insights based on data scanned. Corunner limits unnecessary scanning by querying only saved scopes, estimating scan size, using summary queries first, and sharing a scan budget across regions and retries.
+
+| Investigation stage | Scan budget |
+| --- | ---: |
+| Initial target | Up to 1 GB |
+| Automatic standard investigation | Up to 5 GB total |
+| Explicitly approved deep investigation | Up to 20 GB total |
+
+AWS estimates are approximate. Review your AWS CloudWatch pricing and usage policies before enabling broad log-group access.
+
+## Security and data handling
+
+The connection uses the exact stored role ARN, temporary STS credentials, an External ID tied to the workspace, explicit regions, explicit investigation scopes, and a read-only AWS policy. Corunner does not use this integration as a secondary log archive. Raw CloudWatch telemetry is not persisted by default; redacted evidence needed for continuation may be kept temporarily for up to 24 hours.
+
+## Update or disconnect
+
+Use **Edit** on the AWS CloudWatch integration to change regions, the primary region, log-group access, or investigation scopes. Launch the AWS setup again and complete the CloudFormation update before reconnecting and rediscovering resources.
+
+Disconnecting in Corunner removes the workspace connection and prevents new investigations, but it does not delete the AWS CloudFormation stack. To revoke AWS-side access completely, disconnect in Corunner, open CloudFormation in the stack's region, delete the `corunner-cloudwatch-<workspace-id>` stack, and confirm that the generated role was removed.
+
+## Troubleshooting
+
+- **The AWS tab did not open:** Allow pop-ups for Corunner and click **Open AWS setup**.
+- **CloudFormation is still running:** Wait for `CREATE_COMPLETE` or `UPDATE_COMPLETE`, then click **Check setup now**.
+- **Verification reports a mismatch:** Start a new AWS setup for the correct account and regions. Do not reuse parameters from another workspace.
+- **No log groups are discovered:** Check the account, enabled regions, exact names or prefixes, and the role's `logs:DescribeLogGroups` permission.
+- **Evidence is limited:** Verify the log group is in a saved scope and narrow the request to a service and time window.

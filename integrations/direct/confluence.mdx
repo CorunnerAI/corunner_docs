@@ -1,0 +1,71 @@
+---
+title: "Connect Confluence to Corunner via Forge"
+sidebarTitle: "Confluence"
+description: "Connect Confluence to Corunner through the Atlassian Forge app for page search, page updates, and @Corunner mentions."
+---
+
+Confluence is a Direct Connection built as an Atlassian **Forge app**. Install the app on your Atlassian site to let Corunner read and update Confluence pages and route `@Corunner` mentions to your chat workspace.
+
+## What Corunner does with Confluence
+
+- Read Confluence pages
+- Update Confluence pages
+- Keep decisions and specifications current
+- Respond to `@Corunner` mentions in Confluence
+
+## Authentication
+
+Corunner uses an Atlassian Forge app. Install it from the Atlassian Marketplace, then paste the verification code shown in Corunner into the app's admin page to link Confluence to your workspace.
+
+## Manage this connection
+
+Open **Integrations** in the Corunner web app, then find **Confluence** under the **Direct Connections** tab.
+
+## Install the Corunner Forge app
+
+Open the **Connect Confluence** dialog. Corunner generates a single-use verification code that remains valid for 15 minutes.
+
+<Frame caption="Start the Confluence installation from Corunner.">
+  ![Connect Confluence dialog showing the install button, setup steps, and verification code](/images/integrations/direct/jira/jira.png)
+</Frame>
+
+Click **Install the Corunner app in Confluence**. Corunner opens the Atlassian Marketplace flow. If you are not already signed in, Atlassian asks you to log in.
+
+<Steps>
+  <Step title="Log in to Atlassian">
+    Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
+  </Step>
+  <Step title="Install the Corunner app">
+    Select the Atlassian site that contains the Confluence data you want Corunner to access. The list only includes sites where you are an admin.
+
+    Review the app permissions and vendor details, then click **Install**. Confirm that the installation succeeds.
+
+    <Frame caption="Confirm successful installation for Confluence on your selected site.">
+      ![Atlassian installation dialog showing the selected site and successful installation for Confluence](/images/integrations/direct/jira/jira3.png)
+    </Frame>
+  </Step>
+  <Step title="Open the Corunner admin page">
+    In Jira, click the three-dot menu next to **Apps**, then select **Manage apps**. Open the Corunner app's admin page to link your workspace. Atlassian uses the same Forge installation for the Jira and Confluence products on the site.
+
+    <Frame caption="Open Manage apps from the Apps menu in Jira.">
+      ![Jira sidebar with the Apps menu open and the Manage apps option visible](/images/integrations/direct/jira/Jira4.png)
+    </Frame>
+  </Step>
+  <Step title="Verify the connection">
+    Paste the verification code from the **Connect Confluence** dialog into the **Verification code** field on the Corunner admin page. Click **Connect**, then return to Corunner and click **Refresh status**.
+
+    <Frame caption="Enter your verification code and connect Confluence to Corunner.">
+      ![Corunner admin page showing the Verification code field, Connect button, and code expiration notice](/images/integrations/direct/jira/jira5.png)
+    </Frame>
+  </Step>
+</Steps>
+
+<Tip>
+  If the code expires, generate a new code in Corunner. Do not reuse a code from an earlier installation attempt.
+</Tip>
+
+## What breaks if you disconnect
+
+- Confluence page search and updates
+- Decision and specification context
+- Confluence `@Corunner` mentions
