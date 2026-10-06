@@ -4,69 +4,84 @@ sidebarTitle: "Jira"
 description: "Connect Jira to Corunner through the Atlassian Forge app for issue sync, ticket actions, workflow updates, and @Corunner mentions."
 ---
 
-Jira is a Direct Connection built as an Atlassian **Forge app**. Install the app on your Atlassian site to let Corunner work with Jira issues and route `@Corunner` mentions to your chat workspace.
+Jira is a Direct Connection built as an Atlassian **Forge app**. Install the Corunner Jira app on an Atlassian site, then link that installation to your Corunner workspace.
 
 ## What Corunner does with Jira
 
 - Read Jira issues
-- Create Jira issues
+- Create and manage Jira issues
 - Update Jira status
 - Track blockers and delivery work
 - Respond to `@Corunner` mentions in Jira
 
-## Authentication
+## Before you start
 
-Corunner uses an Atlassian Forge app. Install it from the Atlassian Marketplace, then paste the verification code shown in Corunner into the app's admin page to link Jira to your workspace.
+You need administrator access to the Atlassian site where you want to install the app. The installation flow only lists sites where you are an admin.
 
-## Manage this connection
+Corunner generates a single-use verification code that expires after 15 minutes. Keep the **Connect Jira** dialog open while you complete the Atlassian installation.
 
-Open **Integrations** in the Corunner web app, then find **Jira** under the **Direct Connections** tab.
+## Manage the connection
 
-## Install the Corunner Forge app
+Open **Integrations** in the Corunner web app, then find **Jira** under the **Direct Connections** tab. Select **Connect Jira** to start the installation or to generate a new verification code.
 
-Open the **Connect Jira** dialog. Corunner generates a single-use verification code that remains valid for 15 minutes.
+## Install and connect the Corunner Jira app
+
+Open the **Connect Jira** dialog in Corunner.
 
 <Frame caption="Start the Jira installation from Corunner.">
-  ![Connect Jira dialog showing the install button, setup steps, and verification code](/images/integrations/direct/jira/jira.png)
+  ![Connect Jira and Confluence dialog with the Jira installation button and verification code](/images/integrations/direct/jira/jira.png)
 </Frame>
 
-Click **Install the Corunner app in Jira**. Corunner opens the Atlassian Marketplace flow. If you are not already signed in, Atlassian asks you to log in.
+Click **Install the Corunner app in Jira**. Corunner opens the Atlassian Marketplace flow in a new tab.
 
 <Steps>
-  <Step title="Log in to Atlassian">
+  <Step title="Sign in to Atlassian">
     Enter the email address for your Atlassian account and click **Continue**. You can also use a passkey or Google sign-in if your organization supports it.
+
+    <Frame caption="Sign in to your Atlassian account before installing the Jira app.">
+      ![Atlassian sign-in page with the email field and Continue button](/images/integrations/direct/jira/jira-1.png)
+    </Frame>
   </Step>
-  <Step title="Install the Corunner app">
-    Select the Atlassian site that contains the Jira data you want Corunner to access. The list only includes sites where you are an admin.
+  <Step title="Choose your Jira site">
+    On the installation page, choose the Atlassian site where you want to install **Corunner Jira**. The page only lists sites where you are an administrator.
 
-    Review the app permissions and vendor details, then click **Install**. Confirm that the installation succeeds.
+    <Frame caption="Choose the Atlassian site for the Corunner Jira app.">
+      ![Corunner Jira installation page with the site selector](/images/integrations/direct/jira/jira-2.webp)
+    </Frame>
+  </Step>
+  <Step title="Review the app and install it">
+    Review the app name, vendor details, and requested Jira permissions. The app needs access to Jira issue data and permission to create and manage issues. Click **Install** after you select a site.
 
-    <Frame caption="Confirm successful installation for Jira on your selected site.">
-      ![Atlassian installation dialog showing the selected site and successful installation for Jira](/images/integrations/direct/jira/jira3.png)
+    <Frame caption="Review the Corunner Jira app details and permissions.">
+      ![Atlassian Marketplace page for Corunner Jira showing its permissions and the Get app button](/images/integrations/direct/jira/jira-3.webp)
     </Frame>
   </Step>
   <Step title="Open the Corunner admin page">
-    In Jira, click the three-dot menu next to **Apps**, then select **Manage apps**. Open the Corunner app's admin page to link your workspace.
+    In Jira, open **Apps**, select the three-dot menu, and click **Manage apps**. Find Corunner Jira and open its admin page.
 
-    <Frame caption="Open Manage apps from the Apps menu in Jira.">
-      ![Jira sidebar with the Apps menu open and the Manage apps option visible](/images/integrations/direct/jira/Jira4.png)
+    <Frame caption="Open Manage apps from the Jira Apps menu.">
+      ![Jira Apps menu with the Manage apps option visible](/images/integrations/direct/jira/Jira-4.png)
     </Frame>
   </Step>
-  <Step title="Verify the connection">
-    Paste the verification code from the **Connect Jira** dialog into the **Verification code** field on the Corunner admin page. Click **Connect**, then return to Corunner and click **Refresh status**.
+  <Step title="Verify the connection in Corunner">
+    Copy the verification code from the **Connect Jira** dialog. Paste it into the **Verification code** field on the Corunner admin page and click **Connect**. Return to Corunner and click **Refresh status**.
 
-    <Frame caption="Enter your verification code and connect Jira to Corunner.">
-      ![Corunner admin page showing the Verification code field, Connect button, and code expiration notice](/images/integrations/direct/jira/jira5.png)
+    <Frame caption="Enter the Corunner verification code to link Jira.">
+      ![Corunner Jira admin page with the Verification code field and Connect button](/images/integrations/direct/jira/jira5.png)
     </Frame>
   </Step>
 </Steps>
 
 <Tip>
-  If the code expires, generate a new code in Corunner. Do not reuse a code from an earlier installation attempt.
+  The verification code is single-use and expires after 15 minutes. If it expires or you use it unsuccessfully, return to Corunner and generate a new code.
 </Tip>
 
-## What breaks if you disconnect
+## Troubleshooting
 
-- Issue sync
-- Blocker tracking
-- Jira `@Corunner` mentions
+- If your site does not appear in the Atlassian site selector, confirm that you are an administrator for that site.
+- If installation is blocked, review the app permissions and your organization's Atlassian app-installation policy.
+- If Corunner still shows **Not connected yet**, confirm that you pasted the code into the Corunner Jira admin page, then click **Refresh status**.
+
+## What happens if you disconnect
+
+Disconnecting Jira stops issue sync, blocker tracking, Jira actions, and Jira `@Corunner` mentions. It does not delete your Jira issues.
