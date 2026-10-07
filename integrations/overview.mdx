@@ -21,6 +21,10 @@ Native connectors with dedicated capabilities. Corunner authenticates with the v
 | Service Account | Your admin creates a machine account in the vendor with the read scopes Corunner needs. |
 
 <CardGroup cols={3}>
+  <Card title="Bitbucket" icon="bitbucket" href="/integrations/direct/bitbucket">
+    Repositories and engineering workflows.
+  </Card>
+
   <Card title="GitHub" icon="github" href="/integrations/direct/github">
     Repositories, pull requests, and CI checks.
   </Card>
@@ -29,30 +33,50 @@ Native connectors with dedicated capabilities. Corunner authenticates with the v
     Issues, blockers, and standup enrichment.
   </Card>
 
-  <Card title="Jira & Confluence" icon="jira" href="/integrations/direct/jira-confluence">
-    Issue sync, tickets, and Confluence pages.
+  <Card title="Jira" icon="jira" href="/integrations/direct/jira">
+    Issues, tickets, and workflow updates.
   </Card>
 
-  <Card title="Salesforce" icon="salesforce" href="/integrations/direct/salesforce">
-    Pipeline, accounts, and opportunities.
+  <Card title="AWS CloudWatch" icon="aws" href="/integrations/direct/aws-cloudwatch">
+    Cloud metrics and operational visibility.
   </Card>
 
-  <Card title="HubSpot" icon="hubspot" href="/integrations/direct/hubspot">
-    Deals, contacts, and pipelines.
+  <Card title="Confluence" icon="confluence" href="/integrations/direct/confluence">
+    Page search, updates, and mentions.
   </Card>
 
-  <Card title="Datadog" icon="dog" href="/integrations/direct/datadog">
-    Monitors, incidents, and metrics.
+  <Card title="GitLab" icon="gitlab" href="/integrations/direct/gitlab">
+    Projects, repositories, and engineering workflows.
+  </Card>
+
+  <Card title="Grafana Loki" icon="chart-line" href="/integrations/direct/grafana-loki">
+    Log search and investigation.
+  </Card>
+
+  <Card title="Inbound Email" icon="envelope" href="/integrations/direct/inbound-email">
+    Receive work requests by email.
+  </Card>
+
+  <Card title="Zoho Books" icon="book" href="/integrations/direct/zoho-books">
+    Accounting and financial data.
   </Card>
 </CardGroup>
 
 ## MCP Servers
 
-Corunner can register any Model Context Protocol server and expose its tools to agents. Use MCP for read-only knowledge, product analytics, design context, or custom internal tools that already speak MCP.
+Corunner can register supported Model Context Protocol servers and expose their tools to agents. Use MCP for read-only knowledge and product analytics.
 
 <CardGroup cols={3}>
   <Card title="Notion" icon="book" href="/integrations/mcp/notion">
     Docs, databases, and organizational memory.
+  </Card>
+
+  <Card title="Datadog" icon="dog" href="/integrations/mcp/datadog">
+    Monitoring data and investigations through MCP.
+  </Card>
+
+  <Card title="PostHog" icon="chart-line" href="/integrations/mcp/posthog">
+    Product analytics through MCP.
   </Card>
 
   <Card title="Confluence" icon="confluence" href="/integrations/mcp/confluence">
@@ -63,16 +87,8 @@ Corunner can register any Model Context Protocol server and expose its tools to 
     Search and retrieve files.
   </Card>
 
-  <Card title="Figma" icon="figma" href="/integrations/mcp/figma">
-    Design files, frames, and specs.
-  </Card>
-
-  <Card title="PostHog" icon="chart-line" href="/integrations/mcp/posthog">
-    Product analytics through MCP.
-  </Card>
-
-  <Card title="Custom MCP Server" icon="plug-circle-plus" href="/integrations/mcp/custom">
-    Register any MCP-compatible server.
+  <Card title="SharePoint" icon="sharepoint" href="/integrations/mcp/sharepoint">
+    Search and retrieve SharePoint content.
   </Card>
 </CardGroup>
 
@@ -97,4 +113,4 @@ Corunner can register any Model Context Protocol server and expose its tools to 
   Adding, editing, or disconnecting integrations is admin-only. See [Roles & Access](/get-started/roles-and-access).
 </Note>
 
-New connectors ship regularly. If you want a tool that is not listed today, register it through [Custom MCP Server](/integrations/mcp/custom) or ask your Corunner contact whether a native connector is on the roadmap.
+New connectors ship regularly. Ask your Corunner contact whether a native connector is on the roadmap.
