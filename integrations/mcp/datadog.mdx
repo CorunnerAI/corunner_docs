@@ -1,10 +1,10 @@
 ---
-title: "Connect Datadog as an MCP Server in Corunner"
+title: "Connect Datadog to Corunner as an MCP Server"
 sidebarTitle: "Datadog"
-description: "Link Datadog to Corunner as an MCP server for read-only incident and reliability investigation through OAuth. Manage connection, observation, and usage guidance."
+description: "Link Datadog to Corunner as an MCP server for incident and reliability investigation through OAuth. Configure read and optional write access, observation, and usage guidance."
 ---
 
-Datadog via MCP gives Corunner agents a read-only interface for production and incident investigation. This page covers how to connect Datadog, configure usage guidance, verify capabilities, and manage the connection in Corunner.
+Datadog via MCP gives Corunner agents access to production and incident investigation tools. By default, use read-only access. Enable write access only when your Corunner agents need to create or modify Datadog resources.
 
 <CardGroup cols={1}>
   <Card title="Connect with Datadog" icon="plug" href="https://app.corunner.ai/integrations?tab=mcp">
@@ -19,7 +19,7 @@ Datadog via MCP gives Corunner agents a read-only interface for production and i
 | Server URL | [https://mcp.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.datadoghq.com/api/unstable/mcp-server/mcp) (managed by Corunner) |
 | Authentication | OAuth |
 | Category | monitoring |
-| Used for | read-only production investigation through Datadog MCP |
+| Used for | production investigation through Datadog MCP; read-only by default |
 | Provider docs | [Datadog MCP Server Setup](https://docs.datadoghq.com/mcp_server/setup/) |
 | Auth link | n/a |
 
@@ -34,11 +34,35 @@ Datadog via MCP gives Corunner agents a read-only interface for production and i
   - AP2 - ap2.datadoghq.com → [https://mcp.ap2.datadoghq.com/api/unstable/mcp-server/mcp](https://mcp.ap2.datadoghq.com/api/unstable/mcp-server/mcp)
 </Accordion>
 
-## Connect Datadog
+## Prepare Datadog for MCP access
+
+An administrator must configure MCP access in Datadog before you connect the integration in Corunner.
 
 <Steps>
-  <Step title="Sign in">
-    Sign in to Corunner at app.corunner.ai.
+  <Step title="Sign in to Datadog">
+    Sign in to your Datadog organization with an administrator account.
+  </Step>
+  <Step title="Open Organization Settings">
+    Open the account menu at the bottom-left of the Datadog navigation sidebar, then select **Organization Settings**.
+  </Step>
+  <Step title="Open Preferences">
+    Go to **Organization Settings** → **Preferences**. For US1, open [Datadog Preferences](https://app.datadoghq.com/account/preferences). If your organization uses another Datadog site, open Preferences on that regional domain.
+  </Step>
+  <Step title="Enable MCP access">
+    In the MCP settings, enable **MCP Access**. Enable **MCP Write Access** only if Corunner agents need to create or modify Datadog resources.
+  </Step>
+  <Step title="Add Corunner's OAuth redirect URI">
+    Find **MCP OAuth Redirect URLs**, enter `https://api.corunner.ai/oauth/datadog/callback`, and click **Add URL**. Enter the URL exactly as shown.
+  </Step>
+</Steps>
+
+## Connect Datadog in Corunner
+
+After you configure Datadog, connect the integration in Corunner.
+
+<Steps>
+  <Step title="Sign in to Corunner">
+    Sign in to Corunner at [app.corunner.ai](https://app.corunner.ai).
   </Step>
   <Step title="Open Integrations">
     Open **Integrations** in the left sidebar.
@@ -49,8 +73,8 @@ Datadog via MCP gives Corunner agents a read-only interface for production and i
   <Step title="Find the Datadog card">
     Find the **Datadog** card in the grid.
   </Step>
-  <Step title="Turn on the Connect toggle">
-    Turn on the **Connect** toggle. The **Connect Datadog** modal opens.
+  <Step title="Start the connection">
+    Find the **Datadog** card and turn on the **Connect** toggle. The **Connect Datadog** modal opens.
   </Step>
   <Step title="Verify the Server name">
     Verify the prefilled Server name ("Datadog" by default; rename if you run multiple instances).
@@ -68,7 +92,7 @@ Datadog via MCP gives Corunner agents a read-only interface for production and i
     Optionally click **Advanced** to expand custom headers and Usage guidance.
   </Step>
   <Step title="Enter Usage guidance">
-    Enter Usage guidance describing when and how agents should use this server (see the next section for a copyable example).
+    Enter Usage guidance describing when and how agents should use this server (see the next section for recommended guidance).
   </Step>
   <Step title="Click Connect with Datadog">
     Click **Connect with Datadog** (OAuth).
@@ -87,6 +111,8 @@ Datadog via MCP gives Corunner agents a read-only interface for production and i
   </Step>
 </Steps>
 
+After authorization succeeds, Corunner can access the MCP tools permitted by the Datadog user's role and the access settings configured in Datadog.
+
 ## Configure Usage Guidance
 
 Usage guidance tells Corunner agents when and how to use this server. It is optional but recommended for safe, consistent behavior. Good guidance answers six purposes:
@@ -102,7 +128,7 @@ Usage guidance tells Corunner agents when and how to use this server. It is opti
   Never enter secrets into Usage guidance. This field is for instructions, not credentials.
 </Warning>
 
-Copy and adapt this example:
+You can use the following guidance:
 
 ```text
 Use Datadog MCP for read-only incident and reliability investigation. Prefer search logs and inspect metrics and traces to answer live production questions. Read monitors and incidents to explain the current alert state. Do not attempt any write action. Present findings with the metric name, monitor name, or trace ID and a link to the Datadog view.
