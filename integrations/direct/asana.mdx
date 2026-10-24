@@ -1,0 +1,57 @@
+---
+title: "Connect Asana with a Corunner bot account"
+sidebarTitle: "Asana"
+description: "Create a dedicated Asana account, add it to the right projects, set its Corunner profile photo, and authorize it in Corunner."
+---
+
+Asana shows the account that authorized an API action as the author of a task comment. If you connect your personal Asana account, comments Corunner posts through that connection show your name. To show **Corunner** instead, create a dedicated Asana user and authorize the Corunner connection while signed in as that user. This is a named Asana account, not an Asana app badge. You do not need to copy a personal access token into Corunner. [Learn how Asana attributes actions to accounts](https://developers.asana.com/docs/authentication).
+
+<Warning>
+  The Integrations drawer currently manages one Asana OAuth authorization per Corunner workspace. **Re-authorize Asana** replaces the existing account's connection; it does not add a second account just for comments. Before switching an existing connection, make sure the Corunner account can access every project that the connection and its approved automations need. If you want to keep the current account for reads and webhooks, wait for a separate self-service bot identity option rather than replacing it.
+</Warning>
+
+## Before you start
+
+- You can manage integrations in the intended Corunner workspace.
+- Someone in your organization can create an Asana account and invite it to the projects Corunner needs.
+- You have a dedicated email inbox for that account. Keep its sign-in and recovery access under your organization's control.
+- You know which Asana workspace and projects Corunner should use. A restricted account can only read and comment where it has access.
+
+## Set up the Corunner account in Asana
+
+<Steps>
+  <Step title="Create a separate Asana user">
+    Create or invite an Asana account with a dedicated email address. Name the account **Corunner** or **Corunner Bot** so teammates can recognize it. Complete the invitation and sign in to Asana as that account. [Asana's bot-account guide](https://developers.asana.com/docs/using-bots) explains the account model.
+  </Step>
+
+  <Step title="Download and upload the Corunner icon">
+    Download the square Corunner icon below. While signed in as the Corunner Asana account, open your profile photo, choose **Settings**, then **Profile**. Set the profile name to **Corunner** and upload the downloaded PNG as the profile photo. You may add a short description such as “AI coworker for this organization.” Asana recommends a square image of at least 128 × 128 pixels; this file is 512 × 512 pixels. [Asana profile settings](https://help.asana.com/s/article/profile-settings).
+
+    <img src="/images/integrations/direct/asana/corunner-avatar.png" alt="Orange Corunner icon for the Asana bot profile" width="160" height="160" />
+
+    <a href="/images/integrations/direct/asana/corunner-avatar.png" download="corunner-asana-avatar.png">Download Corunner icon (PNG)</a>
+  </Step>
+
+  <Step title="Give the account access to the right projects">
+    Return to your normal Asana account. Open each project where Corunner should read tasks or post comments. Use **Share** to invite the Corunner account and grant it permission to view tasks and comment. Repeat this for private projects and any other project you plan to automate. Keep the account's access limited to the work it needs. [Asana's guidance on inviting people](https://help.asana.com/s/article/managing-people-in-organizations).
+  </Step>
+
+  <Step title="Authorize Asana in Corunner as that account">
+    Sign in to the dedicated Asana account in the browser session you will use for authorization. A separate browser profile can help prevent Asana from choosing your personal session. In Corunner, select the intended workspace, open **Integrations**, find **Asana** under **Direct Connections**, and choose **Connect Asana**. In the drawer, click **Launch Asana setup**. On Asana's consent screen, confirm the account is **Corunner**, review the requested permissions, and approve the connection. Corunner receives OAuth credentials and refreshes them; it does not receive the account's password. [Asana OAuth overview](https://developers.asana.com/docs/oauth).
+
+    If Asana is already connected, **Edit Asana** → **Re-authorize Asana** replaces the existing authorization. Read the warning above and confirm the new account has access to all required projects first.
+  </Step>
+
+  <Step title="Check the connection and comment author">
+    Return to Corunner and confirm the Asana card shows **Connected** and the intended Asana workspace. Then choose a disposable task in an allowed project and ask Corunner to post a short test comment, completing any required approval. Open the task in Asana and verify the comment appears once with the **Corunner** name and icon. Remove the disposable task or comment when your test is complete.
+  </Step>
+</Steps>
+
+## If something does not look right
+
+- **The comment shows your personal name:** Asana authorized your personal account. Check which Asana user is signed in before connecting again. Re-authorizing will replace the current connection.
+- **Corunner cannot read or comment on a task:** Invite the Corunner account to that task's project and check its role and the permissions granted during OAuth.
+- **The wrong Asana workspace appears in Corunner:** Stop before enabling automations and contact your Corunner administrator or support. The connected workspace must match the projects you intend to use.
+- **An existing automation stops after re-authorization:** Check that the new account can access its approved project and that the Asana connection is healthy before reactivating it.
+
+Disconnecting Asana in Corunner stops its reads, webhooks, and actions. You can also revoke Corunner's authorization from the dedicated account's Asana settings. Neither action deletes the Asana user or its existing tasks and comments.
