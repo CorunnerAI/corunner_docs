@@ -57,6 +57,7 @@
               "integrations/direct/bitbucket",
               "integrations/direct/github",
               "integrations/direct/linear",
+              "integrations/direct/asana",
               "integrations/direct/jira",
               "integrations/direct/aws-cloudwatch",
               "integrations/direct/confluence",
